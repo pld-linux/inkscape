@@ -1,41 +1,38 @@
 #
 # Conditional build
-%bcond_without	popt		# Don't use popt argument parsing library
 %bcond_without	xft		# Don't use xft scalable font database
 %bcond_without	gnome_print	# Don't use gnome print font database and spooler frontend
-%bcond_without	modules		# ???
 %bcond_without	mmx		# Force building without MMX optimazation (Default: auto-detect)
-%bcond_without	libinkscape 	# ???
-#
-%define	cvs	20040604
 #
 Summary:	Scalable vector graphics editor
 Summary(pl):	Edytor skalowalnej grafiki wektorowej
 Name:		inkscape
 Version:	0.39
-Release:	0.%{cvs}.1
+Release:	0.1
 License:	GPL
 Group:		Graphics
-#Source0:	http://dl.sourceforge.net/inkscape/%{name}-%{version}.tar.bz2
-Source0:	%{name}-%{version}-%{cvs}.tar.bz2
-# Source0-md5:	4bb70630d378476f06e9d42a8b3f8da6
+Source0:	http://dl.sourceforge.net/inkscape/%{name}-%{version}.tar.bz2
+# Source0-md5:	3542a646c6742686557b2f0e52c5f6dc
 Patch0:		%{name}-locale-names.patch
 URL:		http://www.inkscape.org/
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake
 BuildRequires:	freetype-devel >= 2.0
 BuildRequires:	gtk+2-devel >= 2.0.0
-BuildRequires:	gtkmm-devel
+# for future use
+#BuildRequires:	gtkmm-devel
 BuildRequires:	gtkspell-devel
 BuildRequires:	intltool
 BuildRequires:	libart_lgpl-devel >= 2.3.10
-%{?with_gnome_print:BuildRequires:	libgnomeprintui-devel >= 1.116.0.}
+%{?with_gnome_print:BuildRequires:	libgnomeprintui-devel >= 1.116.0}
 BuildRequires:	libpng-devel
 BuildRequires:	libsigc++12-devel >= 1.2
+# for future use:
+#BuildRequires:	libsigc++-devel >= 2.0 
 BuildRequires:	libtool
 BuildRequires:	libxml2-devel >= 2.4.24
 BuildRequires:	pkgconfig
-%{?with_popt:BuildRequires:	popt-devel}
+BuildRequires:	popt-devel
 %{?with_xft:BuildRequires:	xft-devel}
 Requires:	perl-XML-XQL
 Buildroot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -64,12 +61,9 @@ intltoolize --copy --force --automake
 %{__automake}
 %{__autoconf}
 %configure \
-	%{!?with_popt: --without-popt}\
 	%{!?with_xft: --without-xft}\
 	%{!?with_gnome_print: --without-gnome-print}\
 	%{?with_gnome_print: --with-gnome-print}\
-	%{!?with_modules: --without-modules}\
-	%{?with_libinkscape: --with-libinkscape} \
 	%{!?with_mmx:--disable-mmx} 
 
 %{__make}
@@ -89,7 +83,6 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog README
 %attr(755,root,root) %{_bindir}/*
-%attr(755,root,root) %{_libdir}/inkscape
 %{_datadir}/inkscape
 %{_mandir}/man1/*
 %{_pixmapsdir}/*.png

@@ -1,3 +1,5 @@
+# TODO:
+# - http://sourceforge.net/tracker/index.php?func=detail&aid=1056633&group_id=93438&atid=604306
 #
 # Conditional build
 %bcond_without	xft		# Don't use xft scalable font database
@@ -16,7 +18,7 @@ Source0:	http://dl.sourceforge.net/inkscape/%{name}-%{version}.tar.bz2
 # Source0-md5:	5f53659eb47efce8593e39d30ebb1c77
 URL:		http://www.inkscape.org/
 BuildRequires:	autoconf >= 2.50
-BuildRequires:	automake
+BuildRequires:	automake 
 BuildRequires:	freetype-devel >= 2.0
 BuildRequires:	gc-devel
 BuildRequires:	gtk+2-devel >= 2:2.4.0

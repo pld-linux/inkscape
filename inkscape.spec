@@ -1,3 +1,12 @@
+#
+# Conditional build
+%bcond_without	popt	#
+%bcond_without	xft	#
+%bcond_without	gnome	#
+%bcond_without	modules	#
+%bcond_without	mmx	#
+%bcond_without	libinkscape
+
 Summary:	Inkscape - a vector illustrator program for GNOME environment
 Summary(pl):	Inkscape - wektorowy program graficzny dla ¶rodowiska GNOME
 Name:		inkscape
@@ -15,8 +24,8 @@ BuildRequires:	libgnomeprintui-devel >= 2.2
 BuildRequires:	libpng-devel
 BuildRequires:	libxml2-devel >= 2.4.24
 BuildRequires:	pkgconfig
-BuildRequires:	popt-devel
-BuildRequires:	xft-devel
+%{?with_popt:BuildRequires:	popt-devel}
+%{?with_xft:BuildRequires:	xft-devel}
 Buildroot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -33,7 +42,13 @@ osi±ga ogóln± u¿ywalno¶æ.
 %setup -q
 
 %build
-%configure
+%configure \
+	%{!?with_popt: --without-popt}\
+	%{!?with_xft: --without-xft}\
+	%{!?with_gnome: --without-gnome-print}\
+	%{!?with_modules: --without-modules}\
+	%{?with_libinkscape: --with-libinkscape} \
+	%{!?with_mmx:--disable-mmx} 
 
 %{__make}
 

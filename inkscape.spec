@@ -8,17 +8,18 @@
 Summary:	Scalable vector graphics editor
 Summary(pl):	Edytor skalowalnej grafiki wektorowej
 Name:		inkscape
-Version:	0.40
-Release:	3
+Version:	0.41
+Release:	1
 License:	GPL v2, LGPL v2.1
 Group:		Applications/Graphics
 Source0:	http://dl.sourceforge.net/inkscape/%{name}-%{version}.tar.bz2
-# Source0-md5:	5f53659eb47efce8593e39d30ebb1c77
+# Source0-md5:	9b4bbfaae688127dca4c3d816a42b21a
+Patch0:		%{name}-gnome_print_compile.patch
 URL:		http://www.inkscape.org/
 BuildRequires:	autoconf >= 2.59-3
 BuildRequires:	automake >= 1:1.9.4-2
 BuildRequires:	freetype-devel >= 2.0
-BuildRequires:	gc-devel
+BuildRequires:	gc-devel >= 6.4
 BuildRequires:	gtk+2-devel >= 2:2.4.0
 BuildRequires:	gtkmm-devel >= 2.4
 BuildRequires:	gtkspell-devel
@@ -46,6 +47,7 @@ dwuwymiarowej grafiki wektorowej.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
 cp -f /usr/share/automake/mkinstalldirs .

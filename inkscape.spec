@@ -34,6 +34,8 @@ BuildRequires:	pkgconfig
 BuildRequires:	popt-devel
 %{?with_xft:BuildRequires:	xft-devel}
 Requires(post,postun):	shared-mime-info
+Requires:	gc >= 6.4
+Requires:	gtk+2 >= 2:2.4.0
 Requires:	perl-XML-XQL
 Buildroot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 

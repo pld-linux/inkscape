@@ -27,6 +27,7 @@ BuildRequires:	libxml2-devel >= 2.4.24
 BuildRequires:	pkgconfig
 %{?with_popt:BuildRequires:	popt-devel}
 %{?with_xft:BuildRequires:	xft-devel}
+Requires:	perl-XML-XQL
 Buildroot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description

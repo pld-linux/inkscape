@@ -3,12 +3,13 @@
 %bcond_without	xft		# Don't use xft scalable font database
 %bcond_without	gnome_print	# Don't use gnome print font database and spooler frontend
 %bcond_without	mmx		# Force building without MMX optimazation (Default: auto-detect)
+%bcond_with	relocation	# Enable binary relocation support
 #
 Summary:	Scalable vector graphics editor
 Summary(pl):	Edytor skalowalnej grafiki wektorowej
 Name:		inkscape
 Version:	0.40
-Release:	0.01
+Release:	0.1
 License:	GPL
 Group:		Applications/Graphics
 Source0:	http://dl.sourceforge.net/inkscape/%{name}-%{version}.tar.bz2
@@ -17,6 +18,7 @@ URL:		http://www.inkscape.org/
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake
 BuildRequires:	freetype-devel >= 2.0
+BuildRequires:	gc-devel
 BuildRequires:	gtk+2-devel >= 2:2.4.0
 BuildRequires:	gtkmm-devel >= 2.4
 BuildRequires:	gtkspell-devel
@@ -24,7 +26,7 @@ BuildRequires:	intltool
 BuildRequires:	libart_lgpl-devel >= 2.3.10
 %{?with_gnome_print:BuildRequires:	libgnomeprintui-devel >= 1.116.0}
 BuildRequires:	libpng-devel
-BuildRequires:	libsigc++-devel >= 2.0 
+BuildRequires:	libsigc++-devel >= 2.0.3
 BuildRequires:	libtool
 BuildRequires:	libxml2-devel >= 2.4.24
 BuildRequires:	pkgconfig
@@ -57,7 +59,8 @@ intltoolize --copy --force --automake
 	%{!?with_xft: --without-xft}\
 	%{!?with_gnome_print: --without-gnome-print}\
 	%{?with_gnome_print: --with-gnome-print}\
-	%{!?with_mmx:--disable-mmx} 
+	%{!?with_mmx:--disable-mmx} \
+	%{?with_relocation:--enable-binreloc}
 
 %{__make}
 

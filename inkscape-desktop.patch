@@ -1,0 +1,12 @@
+diff -aurN inkscape-0.40.orig/inkscape.desktop.in inkscape-0.40/inkscape.desktop.in
+--- inkscape-0.40.orig/inkscape.desktop.in	2004-10-17 01:01:34.000000000 +0200
++++ inkscape-0.40/inkscape.desktop.in	2004-11-30 13:05:57.430673944 +0100
+@@ -6,7 +6,7 @@
+ Version=1.0
+ 
+ Type=Application
+-Categories=Application;Graphics;VectorGraphics;GTK;
++Categories=GTK;Graphics;VectorGraphics;
+ 
+ MimeType=image/svg+xml
+ 

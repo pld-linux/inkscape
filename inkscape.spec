@@ -30,6 +30,7 @@ BuildRequires:	libpng-devel
 BuildRequires:	libsigc++-devel >= 2.0.3
 BuildRequires:	libtool
 BuildRequires:	libxml2-devel >= 2.4.24
+BuildRequires:	libxslt-devel >= 1.0.15
 BuildRequires:	pkgconfig
 BuildRequires:	popt-devel
 %{?with_xft:BuildRequires:	xft-devel}

@@ -1,55 +1,69 @@
 #
 # Conditional build
-%bcond_without	popt	# Don't use popt argument parsing library
-%bcond_without	xft	# Don't use xft scalable font database
-%bcond_without	gnome	# Don't use gnome print font database and spooler frontend
-%bcond_without	modules	# ???
-%bcond_without	mmx	# Force building without MMX optimazation (Default: auto-detect)
-%bcond_without	libinkscape # ???
-
-Summary:	Inkscape - a vector illustrator program for GNOME environment
-Summary(pl):	Inkscape - wektorowy program graficzny dla ¶rodowiska GNOME
+%bcond_without	xft		# Don't use xft scalable font database
+%bcond_without	gnome_print	# Don't use gnome print font database and spooler frontend
+%bcond_without	mmx		# Force building without MMX optimazation (Default: auto-detect)
+#
+Summary:	Scalable vector graphics editor
+Summary(pl):	Edytor skalowalnej grafiki wektorowej
 Name:		inkscape
 Version:	0.39
 Release:	1
 License:	GPL
 Group:		Graphics
-Source0:	http://dl.sourceforge.net/inkscape/%{name}-%{version}.tar.gz
-# Source0-md5:	c9ea2b62cb505681e65e3cc16007fd09
+Source0:	http://dl.sourceforge.net/inkscape/%{name}-%{version}.tar.bz2
+# Source0-md5:	3542a646c6742686557b2f0e52c5f6dc
+Patch0:		%{name}-locale-names.patch
 URL:		http://www.inkscape.org/
+BuildRequires:	autoconf >= 2.50
+BuildRequires:	automake
 BuildRequires:	freetype-devel >= 2.0
 BuildRequires:	gtk+2-devel >= 2.0.0
+# for future use
+#BuildRequires:	gtkmm-devel
+BuildRequires:	gtkspell-devel
+BuildRequires:	intltool
 BuildRequires:	libart_lgpl-devel >= 2.3.10
-BuildRequires:	libgnomeprintui-devel >= 2.2
+%{?with_gnome_print:BuildRequires:	libgnomeprintui-devel >= 1.116.0}
 BuildRequires:	libpng-devel
 BuildRequires:	libsigc++12-devel >= 1.2
+# for future use:
+#BuildRequires:	libsigc++-devel >= 2.0 
+BuildRequires:	libtool
 BuildRequires:	libxml2-devel >= 2.4.24
 BuildRequires:	pkgconfig
-%{?with_popt:BuildRequires:	popt-devel}
+BuildRequires:	popt-devel
 %{?with_xft:BuildRequires:	xft-devel}
 Requires:	perl-XML-XQL
 Buildroot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
-Inkscape is (or at least should be) a vector illustrator program for
-the GNOME environment. It is currently in active development and
-approaching general usability.
+Inkscape is a program for viewing, making, and editing two-dimensional
+vector drawings.
 
 %description -l pl
-Inkscape jest (a przynajmniej powinien byæ) wektorowym programem
-graficznym dla ¶rodowiska GNOME. Aktualnie jest aktywnie rozwijany i
-osi±ga ogóln± u¿ywalno¶æ.
+Inkscape jest programem do przegl±dania, tworzenia i edycji
+dwuwymiarowej grafiki wektorowej.
 
 %prep
 %setup -q
+%patch0 -p1
+
+mv po/{no,nb}.po
 
 %build
+cp -f /usr/share/automake/mkinstalldirs .
+%{__libtoolize}
+glib-gettextize --copy --force
+intltoolize --copy --force --automake
+%{__aclocal}
+%{__autoheader}
+%{__automake}
+%{__autoconf}
 %configure \
-	%{!?with_popt: --without-popt}\
 	%{!?with_xft: --without-xft}\
-	%{!?with_gnome: --without-gnome-print}\
-	%{!?with_modules: --without-modules}\
-	%{?with_libinkscape: --with-libinkscape} \
+	%{!?with_gnome_print: --without-gnome-print}\
+	%{?with_gnome_print: --with-gnome-print}\
 	%{!?with_mmx:--disable-mmx} 
 
 %{__make}

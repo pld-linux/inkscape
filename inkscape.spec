@@ -10,12 +10,12 @@
 Summary:	Inkscape - a vector illustrator program for GNOME environment
 Summary(pl):	Inkscape - wektorowy program graficzny dla ¶rodowiska GNOME
 Name:		inkscape
-Version:	0.38.1
-Release:	2
+Version:	0.39
+Release:	1
 License:	GPL
 Group:		Graphics
 Source0:	http://dl.sourceforge.net/inkscape/%{name}-%{version}.tar.gz
-# Source0-md5:	ea486c528649a34827b74077ffd2076c
+# Source0-md5:	c9ea2b62cb505681e65e3cc16007fd09
 URL:		http://www.inkscape.org/
 BuildRequires:	freetype-devel >= 2.0
 BuildRequires:	gtk+2-devel >= 2.0.0
@@ -69,7 +69,6 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog README
 %attr(755,root,root) %{_bindir}/*
-%attr(755,root,root) %{_libdir}/inkscape
 %{_datadir}/inkscape
 %{_mandir}/man1/*
 %{_pixmapsdir}/*.png

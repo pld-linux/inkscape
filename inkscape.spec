@@ -18,7 +18,7 @@ License:	GPL
 Group:		Graphics
 #Source0:	http://dl.sourceforge.net/inkscape/%{name}-%{version}.tar.bz2
 Source0:	%{name}-%{version}-%{cvs}.tar.bz2
-# Source0-md5:	ea486c528649a34827b74077ffd2076c
+# Source0-md5:	4bb70630d378476f06e9d42a8b3f8da6
 Patch0:		%{name}-locale-names.patch
 URL:		http://www.inkscape.org/
 BuildRequires:	autoconf >= 2.50

@@ -1,17 +1,17 @@
 #
 # Conditional build
-%bcond_without	popt	#
-%bcond_without	xft	#
-%bcond_without	gnome	#
-%bcond_without	modules	#
-%bcond_without	mmx	#
-%bcond_without	libinkscape
+%bcond_without	popt	# Don't use popt argument parsing library
+%bcond_without	xft	# Don't use xft scalable font database
+%bcond_without	gnome	# Don't use gnome print font database and spooler frontend
+%bcond_without	modules	# ???
+%bcond_without	mmx	# Force building without MMX optimazation (Default: auto-detect)
+%bcond_without	libinkscape # ???
 
 Summary:	Inkscape - a vector illustrator program for GNOME environment
 Summary(pl):	Inkscape - wektorowy program graficzny dla ¶rodowiska GNOME
 Name:		inkscape
 Version:	0.38.1
-Release:	2
+Release:	1
 License:	GPL
 Group:		Graphics
 Source0:	http://dl.sourceforge.net/inkscape/%{name}-%{version}.tar.gz

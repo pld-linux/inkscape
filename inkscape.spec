@@ -11,14 +11,15 @@ Summary:	Scalable vector graphics editor
 Summary(pl):	Edytor skalowalnej grafiki wektorowej
 Name:		inkscape
 Version:	0.40
-Release:	0.1
+Release:	0.2
 License:	GPL
 Group:		Applications/Graphics
 Source0:	http://dl.sourceforge.net/inkscape/%{name}-%{version}.tar.bz2
 # Source0-md5:	5f53659eb47efce8593e39d30ebb1c77
+Patch0:		%{name}-desktop.patch
 URL:		http://www.inkscape.org/
 BuildRequires:	autoconf >= 2.50
-BuildRequires:	automake 
+BuildRequires:	automake
 BuildRequires:	freetype-devel >= 2.0
 BuildRequires:	gc-devel
 BuildRequires:	gtk+2-devel >= 2:2.4.0
@@ -34,6 +35,7 @@ BuildRequires:	libxml2-devel >= 2.4.24
 BuildRequires:	pkgconfig
 BuildRequires:	popt-devel
 %{?with_xft:BuildRequires:	xft-devel}
+Requires(post,postun):	shared-mime-info
 Requires:	perl-XML-XQL
 Buildroot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -47,6 +49,7 @@ dwuwymiarowej grafiki wektorowej.
 
 %prep
 %setup -q
+%patch -p1
 
 %build
 cp -f /usr/share/automake/mkinstalldirs .
@@ -62,7 +65,8 @@ intltoolize --copy --force --automake
 	%{!?with_gnome_print: --without-gnome-print}\
 	%{?with_gnome_print: --with-gnome-print}\
 	%{!?with_mmx:--disable-mmx} \
-	%{?with_relocation:--enable-binreloc}
+	%{?with_relocation:--enable-binreloc} \
+	--disable-static
 
 %{__make}
 
@@ -72,16 +76,30 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
+rm -f $RPM_BUILD_ROOT%{_libdir}/inkscape/plugins/*.la
+
 %find_lang %{name}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
+
+%post
+umask 022
+update-mime-database %{_datadir}/mime
+[ ! -x /usr/bin/update-desktop-database ] || /usr/bin/update-desktop-database >/dev/null 2>&1 ||:
+
+%postun
+umask 022
+update-mime-database %{_datadir}/mime
+[ ! -x /usr/bin/update-desktop-database ] || /usr/bin/update-desktop-database >/dev/null 2>&1
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog README
 %attr(755,root,root) %{_bindir}/*
 %{_datadir}/inkscape
+%dir %{_libdir}/inkscape
+%attr(755,root,root) %{_libdir}/inkscape/plugins/lib*.so.*.*.*
 %{_mandir}/man1/*
 %{_pixmapsdir}/*.png
 %{_desktopdir}/*.desktop

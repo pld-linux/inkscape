@@ -12,7 +12,7 @@ Summary(pl):	Edytor skalowalnej grafiki wektorowej
 Name:		inkscape
 Version:	0.40
 Release:	0.2
-License:	GPL
+License:	GPL v.2, LGPL v.2.1
 Group:		Applications/Graphics
 Source0:	http://dl.sourceforge.net/inkscape/%{name}-%{version}.tar.bz2
 # Source0-md5:	5f53659eb47efce8593e39d30ebb1c77

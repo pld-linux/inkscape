@@ -18,7 +18,7 @@ Source0:	http://dl.sourceforge.net/inkscape/%{name}-%{version}.tar.gz
 # Source0-md5:	ea486c528649a34827b74077ffd2076c
 URL:		http://www.inkscape.org/
 BuildRequires:	freetype-devel >= 2.0
-BuildRequires:	gtk+-devel >= 2.0.0
+BuildRequires:	gtk+2-devel >= 2.0.0
 BuildRequires:	libart_lgpl-devel >= 2.3.10
 BuildRequires:	libgnomeprintui-devel >= 2.2
 BuildRequires:	libpng-devel

@@ -22,7 +22,7 @@ BuildRequires:	gtk+-devel >= 2.0.0
 BuildRequires:	libart_lgpl-devel >= 2.3.10
 BuildRequires:	libgnomeprintui-devel >= 2.2
 BuildRequires:	libpng-devel
-BuildRequires:	libsigc++-devel >= 1.2
+BuildRequires:	libsigc++12-devel >= 1.2
 BuildRequires:	libxml2-devel >= 2.4.24
 BuildRequires:	pkgconfig
 %{?with_popt:BuildRequires:	popt-devel}

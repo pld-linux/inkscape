@@ -7,28 +7,24 @@
 Summary:	Scalable vector graphics editor
 Summary(pl):	Edytor skalowalnej grafiki wektorowej
 Name:		inkscape
-Version:	0.39
-Release:	2
+Version:	0.40
+Release:	0.01
 License:	GPL
 Group:		Applications/Graphics
 Source0:	http://dl.sourceforge.net/inkscape/%{name}-%{version}.tar.bz2
-# Source0-md5:	3542a646c6742686557b2f0e52c5f6dc
-Patch0:		%{name}-locale-names.patch
+# Source0-md5:	5f53659eb47efce8593e39d30ebb1c77
 URL:		http://www.inkscape.org/
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake
 BuildRequires:	freetype-devel >= 2.0
-BuildRequires:	gtk+2-devel >= 1:2.0.0
-# for future use
-#BuildRequires:	gtkmm-devel
+BuildRequires:	gtk+2-devel >= 2:2.4.0
+BuildRequires:	gtkmm-devel >= 2.4
 BuildRequires:	gtkspell-devel
 BuildRequires:	intltool
 BuildRequires:	libart_lgpl-devel >= 2.3.10
 %{?with_gnome_print:BuildRequires:	libgnomeprintui-devel >= 1.116.0}
 BuildRequires:	libpng-devel
-BuildRequires:	libsigc++12-devel >= 1.2
-# for future use:
-#BuildRequires:	libsigc++-devel >= 2.0 
+BuildRequires:	libsigc++-devel >= 2.0 
 BuildRequires:	libtool
 BuildRequires:	libxml2-devel >= 2.4.24
 BuildRequires:	pkgconfig
@@ -47,9 +43,6 @@ dwuwymiarowej grafiki wektorowej.
 
 %prep
 %setup -q
-%patch0 -p1
-
-mv po/{no,nb}.po
 
 %build
 cp -f /usr/share/automake/mkinstalldirs .

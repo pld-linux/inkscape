@@ -17,8 +17,8 @@ Group:		Applications/Graphics
 Source0:	http://dl.sourceforge.net/inkscape/%{name}-%{version}.tar.bz2
 # Source0-md5:	5f53659eb47efce8593e39d30ebb1c77
 URL:		http://www.inkscape.org/
-BuildRequires:	autoconf >= 2.50
-BuildRequires:	automake >= 1:1.7
+BuildRequires:	autoconf >= 2.59-7
+BuildRequires:	automake >= 1:1.9.4-2
 BuildRequires:	freetype-devel >= 2.0
 BuildRequires:	gc-devel
 BuildRequires:	gtk+2-devel >= 2:2.4.0

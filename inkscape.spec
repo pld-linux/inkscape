@@ -29,7 +29,7 @@ BuildRequires:	gtkmm-devel
 BuildRequires:	gtkspell-devel
 BuildRequires:	intltool
 BuildRequires:	libart_lgpl-devel >= 2.3.10
-BuildRequires:	libgnomeprintui-devel >= 1.116.0.
+%{?with_gnome_print:BuildRequires:	libgnomeprintui-devel >= 1.116.0.}
 BuildRequires:	libpng-devel
 BuildRequires:	libsigc++12-devel >= 1.2
 BuildRequires:	libtool

@@ -72,7 +72,7 @@ intltoolize --copy --force --automake
 	%{?with_libinkscape: --with-libinkscape} \
 	%{!?with_mmx:--disable-mmx} 
 
-%{__make} 
+%{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT

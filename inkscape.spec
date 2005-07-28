@@ -82,12 +82,12 @@ rm -rf $RPM_BUILD_ROOT
 
 %post
 umask 022
-update-mime-database %{_datadir}/mime ||:
+update-mime-database %{_datadir}/mime >/dev/null 2>&1 ||:
 [ ! -x /usr/bin/update-desktop-database ] || /usr/bin/update-desktop-database >/dev/null 2>&1 ||:
 
 %postun
 umask 022
-update-mime-database %{_datadir}/mime
+update-mime-database %{_datadir}/mime >/dev/null 2>&1
 [ ! -x /usr/bin/update-desktop-database ] || /usr/bin/update-desktop-database >/dev/null 2>&1
 
 %files -f %{name}.lang

@@ -9,7 +9,7 @@ Summary:	Scalable vector graphics editor
 Summary(pl):	Edytor skalowalnej grafiki wektorowej
 Name:		inkscape
 Version:	0.42
-Release:	1
+Release:	2
 License:	GPL v2, LGPL v2.1
 Group:		Applications/Graphics
 Source0:	http://dl.sourceforge.net/inkscape/%{name}-%{version}.tar.bz2
@@ -94,7 +94,16 @@ update-mime-database %{_datadir}/mime >/dev/null 2>&1
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog README
 %attr(755,root,root) %{_bindir}/*
-%{_datadir}/inkscape
+%dir %{_datadir}/inkscape
+%{_datadir}/inkscape/[!e]*
+%{_datadir}/inkscape/examples
+%dir %{_datadir}/inkscape/extensions
+%{_datadir}/inkscape/extensions/*.inx
+%attr(755,root,root) %{_datadir}/inkscape/extensions/*.pl
+%attr(755,root,root) %{_datadir}/inkscape/extensions/*.pm
+%attr(755,root,root) %{_datadir}/inkscape/extensions/*.py
+%attr(755,root,root) %{_datadir}/inkscape/extensions/*.sh
+%attr(755,root,root) %{_datadir}/inkscape/extensions/svg_dropshadow
 %{_mandir}/man1/*
 %lang(fr) %{_mandir}/fr/man1/*
 %{_pixmapsdir}/*.png

@@ -8,31 +8,33 @@
 Summary:	Scalable vector graphics editor
 Summary(pl):	Edytor skalowalnej grafiki wektorowej
 Name:		inkscape
-Version:	0.42
-Release:	2
+Version:	0.42.2
+Release:	1
 License:	GPL v2, LGPL v2.1
 Group:		Applications/Graphics
 Source0:	http://dl.sourceforge.net/inkscape/%{name}-%{version}.tar.bz2
-# Source0-md5:	4af587b942647bf9e27861e2238844c8
+# Source0-md5:	a27172087018e850e92e97e52b5dad08
 URL:		http://www.inkscape.org/
 BuildRequires:	autoconf >= 2.59-3
 BuildRequires:	automake >= 1:1.9.4-2
 BuildRequires:	freetype-devel >= 2.0
 BuildRequires:	gc-devel >= 6.4
+BuildRequires:	gcc-c++ >= 3.0
 BuildRequires:	gtk+2-devel >= 2:2.4.0
 BuildRequires:	gtkmm-devel >= 2.4
-BuildRequires:	gtkspell-devel
-BuildRequires:	intltool
+BuildRequires:	gtkspell-devel >= 2.0
+BuildRequires:	intltool >= 0.22
 BuildRequires:	libart_lgpl-devel >= 2.3.10
 %{?with_gnome_print:BuildRequires:	libgnomeprintui-devel >= 1.116.0}
-BuildRequires:	libpng-devel
+BuildRequires:	libpng-devel >= 1.2
 BuildRequires:	libsigc++-devel >= 2.0.3
 BuildRequires:	libtool
-BuildRequires:	libxml2-devel >= 2.4.24
+BuildRequires:	libxml2-devel >= 2.6.0
 BuildRequires:	libxslt-devel >= 1.0.15
 BuildRequires:	pkgconfig
 BuildRequires:	popt-devel
 %{?with_xft:BuildRequires:	xft-devel}
+BuildRequires:	zlib-devel
 Requires(post,postun):	shared-mime-info
 Requires:	gc >= 6.4
 Requires:	gtk+2 >= 2:2.4.0

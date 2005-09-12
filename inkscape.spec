@@ -53,10 +53,9 @@ dwuwymiarowej grafiki wektorowej.
 %setup -q
 
 %build
-cp -f /usr/share/automake/mkinstalldirs .
 %{__libtoolize}
-glib-gettextize --copy --force
-intltoolize --copy --force --automake
+%{__glib_gettextize}
+%{__intltoolize}
 %{__aclocal}
 %{__autoheader}
 %{__automake}

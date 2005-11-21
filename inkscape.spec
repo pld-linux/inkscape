@@ -97,7 +97,12 @@ update-mime-database %{_datadir}/mime >/dev/null 2>&1
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
-%doc AUTHORS ChangeLog README
+%doc AUTHORS ChangeLog NEWS README TRANSLATORS
+%lang(ca) %doc README.ca.txt
+%lang(de) %doc README.de.txt
+%lang(es) %doc README.es.txt
+%lang(fr) %doc README.fr.txt
+%lang(it) %doc README.it.txt
 %attr(755,root,root) %{_bindir}/*
 %dir %{_datadir}/inkscape
 %{_datadir}/inkscape/[!e]*

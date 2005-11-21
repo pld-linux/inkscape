@@ -3,17 +3,18 @@
 %bcond_without	xft		# Don't use xft scalable font database
 %bcond_without	gnome_print	# Don't use gnome print font database and spooler frontend
 %bcond_without	mmx		# Force building without MMX optimazation (Default: auto-detect)
+%bcond_with	inkboard	# Enable inkboard support
 %bcond_with	relocation	# Enable binary relocation support
 #
 Summary:	Scalable vector graphics editor
 Summary(pl):	Edytor skalowalnej grafiki wektorowej
 Name:		inkscape
-Version:	0.42.2
+Version:	0.43
 Release:	1
 License:	GPL v2, LGPL v2.1
 Group:		Applications/Graphics
 Source0:	http://dl.sourceforge.net/inkscape/%{name}-%{version}.tar.bz2
-# Source0-md5:	a27172087018e850e92e97e52b5dad08
+# Source0-md5:	97c606182f5e177eef70c1e8a55efc1f
 URL:		http://www.inkscape.org/
 BuildRequires:	autoconf >= 2.59-3
 BuildRequires:	automake >= 1:1.9.4-2
@@ -31,6 +32,7 @@ BuildRequires:	libsigc++-devel >= 2.0.3
 BuildRequires:	libtool
 BuildRequires:	libxml2-devel >= 2.6.0
 BuildRequires:	libxslt-devel >= 1.0.15
+%{?with_inkboard:BuildRequires:	loudmouth-devel >= 1.0}
 BuildRequires:	pkgconfig
 BuildRequires:	popt-devel
 %{?with_xft:BuildRequires:	xft-devel}
@@ -61,11 +63,12 @@ dwuwymiarowej grafiki wektorowej.
 %{__automake}
 %{__autoconf}
 %configure \
-	%{!?with_xft: --without-xft}\
-	%{!?with_gnome_print: --without-gnome-print}\
-	%{?with_gnome_print: --with-gnome-print}\
+	%{!?with_xft: --without-xft} \
+	%{!?with_gnome_print: --without-gnome-print} \
+	%{?with_gnome_print: --with-gnome-print} \
 	%{!?with_mmx:--disable-mmx} \
 	%{?with_relocation:--enable-binreloc} \
+	%{?with_inkboard:--enable-inkboard} \
 	--disable-static
 
 %{__make}
@@ -80,6 +83,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %clean
 rm -rf $RPM_BUILD_ROOT
+
 
 %post
 umask 022

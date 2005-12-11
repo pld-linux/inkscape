@@ -15,6 +15,7 @@ License:	GPL v2, LGPL v2.1
 Group:		Applications/Graphics
 Source0:	http://dl.sourceforge.net/inkscape/%{name}-%{version}.tar.bz2
 # Source0-md5:	97c606182f5e177eef70c1e8a55efc1f
+Patch0:		%{name}-c++.patch
 URL:		http://www.inkscape.org/
 BuildRequires:	autoconf >= 2.59-3
 BuildRequires:	automake >= 1:1.9.4-2
@@ -53,6 +54,7 @@ dwuwymiarowej grafiki wektorowej.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
 %{__libtoolize}

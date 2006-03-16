@@ -10,7 +10,7 @@ Summary:	Scalable vector graphics editor
 Summary(pl):	Edytor skalowalnej grafiki wektorowej
 Name:		inkscape
 Version:	0.43
-Release:	1
+Release:	2
 License:	GPL v2, LGPL v2.1
 Group:		Applications/Graphics
 Source0:	http://dl.sourceforge.net/inkscape/%{name}-%{version}.tar.bz2
@@ -36,7 +36,7 @@ BuildRequires:	libxslt-devel >= 1.0.15
 %{?with_inkboard:BuildRequires:	loudmouth-devel >= 1.0}
 BuildRequires:	pkgconfig
 BuildRequires:	popt-devel
-%{?with_xft:BuildRequires:	xft-devel}
+%{?with_xft:BuildRequires:	xorg-lib-libXft-devel}
 BuildRequires:	zlib-devel
 Requires(post,postun):	shared-mime-info
 Requires:	gc >= 6.4

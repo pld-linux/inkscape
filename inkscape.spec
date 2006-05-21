@@ -1,4 +1,8 @@
 #
+# TODO: needs patch for freetype 2.2.x:
+# http://www.freetype.org/freetype2/patches/inkscape-0.43-noftinternals.patch
+# (already in inkscape 0.44)
+#
 # Conditional build
 %bcond_without	xft		# Don't use xft scalable font database
 %bcond_without	gnome_print	# Don't use gnome print font database and spooler frontend

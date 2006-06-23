@@ -1,7 +1,5 @@
 #
-# TODO: needs patch for freetype 2.2.x:
-# http://www.freetype.org/freetype2/patches/inkscape-0.43-noftinternals.patch
-# (already in inkscape 0.44)
+# TODO: check why build requires libselinux-devel
 #
 # Conditional build
 %bcond_without	xft		# Don't use xft scalable font database
@@ -13,13 +11,12 @@
 Summary:	Scalable vector graphics editor
 Summary(pl):	Edytor skalowalnej grafiki wektorowej
 Name:		inkscape
-Version:	0.43
-Release:	2
+Version:	0.44
+Release:	0.9
 License:	GPL v2, LGPL v2.1
 Group:		Applications/Graphics
 Source0:	http://dl.sourceforge.net/inkscape/%{name}-%{version}.tar.bz2
-# Source0-md5:	97c606182f5e177eef70c1e8a55efc1f
-Patch0:		%{name}-c++.patch
+# Source0-md5:	f0bf316e15ddc6009976d97388522f85
 URL:		http://www.inkscape.org/
 BuildRequires:	autoconf >= 2.59-3
 BuildRequires:	automake >= 1:1.9.4-2
@@ -58,7 +55,6 @@ dwuwymiarowej grafiki wektorowej.
 
 %prep
 %setup -q
-%patch0 -p1
 
 %build
 %{__libtoolize}

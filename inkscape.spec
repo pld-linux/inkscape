@@ -20,6 +20,8 @@ Source0:	http://dl.sourceforge.net/inkscape/%{name}-%{version}.tar.bz2
 URL:		http://www.inkscape.org/
 BuildRequires:	autoconf >= 2.59-3
 BuildRequires:	automake >= 1:1.9.4-2
+BuildRequires:	boost-any-devel
+BuildRequires:	boost-bind-devel
 BuildRequires:	freetype-devel >= 2.0
 BuildRequires:	gc-devel >= 6.4
 BuildRequires:	gcc-c++ >= 3.0
@@ -27,6 +29,7 @@ BuildRequires:	gtk+2-devel >= 2:2.4.0
 BuildRequires:	gtkmm-devel >= 2.4
 BuildRequires:	gtkspell-devel >= 2.0
 BuildRequires:	intltool >= 0.22
+BuildRequires:	lcms-devel
 BuildRequires:	libart_lgpl-devel >= 2.3.10
 %{?with_gnome_print:BuildRequires:	libgnomeprintui-devel >= 1.116.0}
 BuildRequires:	libpng-devel >= 1.2

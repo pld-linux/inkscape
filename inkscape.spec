@@ -113,7 +113,10 @@ update-mime-database %{_datadir}/mime >/dev/null 2>&1
 %{_datadir}/inkscape/[!e]*
 %{_datadir}/inkscape/examples
 %dir %{_datadir}/inkscape/extensions
+%{_datadir}/inkscape/extensions/*.cmd
 %{_datadir}/inkscape/extensions/*.inx
+%{_datadir}/inkscape/extensions/*.txt
+%{_datadir}/inkscape/extensions/*.xslt
 %attr(755,root,root) %{_datadir}/inkscape/extensions/*.pl
 %attr(755,root,root) %{_datadir}/inkscape/extensions/*.pm
 %attr(755,root,root) %{_datadir}/inkscape/extensions/*.py

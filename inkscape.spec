@@ -4,6 +4,7 @@
 # Conditional build
 %bcond_without	xft		# Don't use xft scalable font database
 %bcond_without	gnome_print	# Don't use gnome print font database and spooler frontend
+%bcond_without	gnome_vfs	# Don't use gnome vfs for loading files
 %bcond_without	mmx		# Force building without MMX optimazation (Default: auto-detect)
 %bcond_with	inkboard	# Enable inkboard support
 %bcond_with	relocation	# Enable binary relocation support
@@ -12,7 +13,7 @@ Summary:	Scalable vector graphics editor
 Summary(pl):	Edytor skalowalnej grafiki wektorowej
 Name:		inkscape
 Version:	0.44
-Release:	0.9
+Release:	1
 License:	GPL v2, LGPL v2.1
 Group:		Applications/Graphics
 Source0:	http://dl.sourceforge.net/inkscape/%{name}-%{version}.tar.bz2
@@ -23,28 +24,29 @@ BuildRequires:	automake >= 1:1.9.4-2
 BuildRequires:	boost-any-devel
 BuildRequires:	boost-bind-devel
 BuildRequires:	freetype-devel >= 2.0
-BuildRequires:	gc-devel >= 6.4
 BuildRequires:	gcc-c++ >= 3.0
-BuildRequires:	gtk+2-devel >= 2:2.4.0
+BuildRequires:	gc-devel >= 6.4
+%{?with_gnome_vfs:BuildRequires:	gnome-vfs2-devel >= 2.15.2}
+BuildRequires:	gtk+2-devel >= 2:2.9.4
 BuildRequires:	gtkmm-devel >= 2.4
-BuildRequires:	gtkspell-devel >= 2.0
-BuildRequires:	intltool >= 0.22
-BuildRequires:	lcms-devel
+BuildRequires:	gtkspell-devel >= 2.0.11
+BuildRequires:	intltool >= 0.35.0
+BuildRequires:	lcms-devel >= 1.15
 BuildRequires:	libart_lgpl-devel >= 2.3.10
-%{?with_gnome_print:BuildRequires:	libgnomeprintui-devel >= 1.116.0}
+%{?with_gnome_print:BuildRequires:	libgnomeprintui-devel >= 2.12.1}
 BuildRequires:	libpng-devel >= 1.2
-BuildRequires:	libsigc++-devel >= 2.0.3
+BuildRequires:	libsigc++-devel >= 2.0.17
 BuildRequires:	libtool
-BuildRequires:	libxml2-devel >= 2.6.0
-BuildRequires:	libxslt-devel >= 1.0.15
-%{?with_inkboard:BuildRequires:	loudmouth-devel >= 1.0}
+BuildRequires:	libxml2-devel >= 1:2.6.26
+BuildRequires:	libxslt-devel >= 1.1.17
+%{?with_inkboard:BuildRequires:	loudmouth-devel >= 1.0.3}
 BuildRequires:	pkgconfig
 BuildRequires:	popt-devel
 %{?with_xft:BuildRequires:	xorg-lib-libXft-devel}
 BuildRequires:	zlib-devel
 Requires(post,postun):	shared-mime-info
 Requires:	gc >= 6.4
-Requires:	gtk+2 >= 2:2.4.0
+Requires:	gtk+2 >= 2:2.9.4
 Requires:	perl-XML-XQL
 Buildroot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -69,8 +71,9 @@ dwuwymiarowej grafiki wektorowej.
 %{__autoconf}
 %configure \
 	%{!?with_xft: --without-xft} \
-	%{!?with_gnome_print: --without-gnome-print} \
-	%{?with_gnome_print: --with-gnome-print} \
+	%{!?with_gnome_print:--without-gnome-print} \
+	%{?with_gnome_print:--with-gnome-print} \
+	%{!?with_gnome_vfs:--without-gnome-vfs} \
 	%{!?with_mmx:--disable-mmx} \
 	%{?with_relocation:--enable-binreloc} \
 	%{?with_inkboard:--enable-inkboard} \

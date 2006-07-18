@@ -21,12 +21,14 @@ BuildRequires:	automake >= 1:1.9.4-2
 BuildRequires:	freetype-devel >= 2.0
 BuildRequires:	gc-devel >= 6.4
 BuildRequires:	gcc-c++ >= 3.0
+BuildRequires:	gettext-devel
 BuildRequires:	gnome-vfs2-devel >= 2.14.2
 BuildRequires:	gtk+2-devel >= 2:2.4.0
 BuildRequires:	gtkmm-devel >= 2.4
 BuildRequires:	gtkspell-devel >= 2.0
 BuildRequires:	intltool >= 0.22
 BuildRequires:	libart_lgpl-devel >= 2.3.10
+BuildRequires:	lcms-devel >= 1.13
 %{?with_gnome_print:BuildRequires:	libgnomeprintui-devel >= 1.116.0}
 BuildRequires:	libpng-devel >= 1.2
 BuildRequires:	libsigc++-devel >= 2.0.3
@@ -36,6 +38,7 @@ BuildRequires:	libxslt-devel >= 1.0.15
 %{?with_inkboard:BuildRequires:	loudmouth-devel >= 1.0}
 BuildRequires:	pkgconfig
 BuildRequires:	popt-devel
+BuildRequires:	rpm-pythonprov
 %{?with_xft:BuildRequires:	xft-devel}
 BuildRequires:	zlib-devel
 Requires(post,postun):	shared-mime-info

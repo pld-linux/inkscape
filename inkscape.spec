@@ -26,6 +26,7 @@ BuildRequires:	boost-bind-devel
 BuildRequires:	freetype-devel >= 2.0
 BuildRequires:	gcc-c++ >= 3.0
 BuildRequires:	gc-devel >= 6.4
+BuildRequires:	gettext-devel
 %{?with_gnome_vfs:BuildRequires:	gnome-vfs2-devel >= 2.15.2}
 BuildRequires:	gtk+2-devel >= 2:2.9.4
 BuildRequires:	gtkmm-devel >= 2.4
@@ -42,6 +43,7 @@ BuildRequires:	libxslt-devel >= 1.1.17
 %{?with_inkboard:BuildRequires:	loudmouth-devel >= 1.0.3}
 BuildRequires:	pkgconfig
 BuildRequires:	popt-devel
+BuildRequires:	rpm-pythonprov
 %{?with_xft:BuildRequires:	xorg-lib-libXft-devel}
 BuildRequires:	zlib-devel
 Requires(post,postun):	shared-mime-info

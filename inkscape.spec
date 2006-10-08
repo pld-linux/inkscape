@@ -48,6 +48,7 @@ BuildRequires:	rpm-pythonprov
 BuildRequires:	zlib-devel
 Requires(post,postun):	shared-mime-info
 Requires:	gc >= 6.4
+%{?with_gnome_vfs:Requires:	gnome-vfs2 >= 2.15.2}
 Requires:	gtk+2 >= 2:2.9.4
 Requires:	perl-XML-XQL
 Buildroot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)

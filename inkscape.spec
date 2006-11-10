@@ -9,15 +9,17 @@
 %bcond_with	inkboard	# Enable inkboard support
 %bcond_with	relocation	# Enable binary relocation support
 #
+%define		_snap_date	20061110
+%define		_snap_time	0200
 Summary:	Scalable vector graphics editor
 Summary(pl):	Edytor skalowalnej grafiki wektorowej
 Name:		inkscape
-Version:	0.44.1
-Release:	1
+Version:	0.45
+Release:	0.%{_snap_date}.%{_snap_time}.1
 License:	GPL v2, LGPL v2.1
 Group:		Applications/Graphics
-Source0:	http://dl.sourceforge.net/inkscape/%{name}-%{version}.tar.gz
-# Source0-md5:	ae2929f70403004038963ef2448728f3
+Source0:	http://inkscape.modevia.com/svn-snap/inkscape-%{_snap_date}-%{_snap_time}.tar.bz2
+# Source0-md5:	8ad769594640aa40cdb9ec335edf121a
 Patch0:		%{name}-ac.patch
 URL:		http://www.inkscape.org/
 BuildRequires:	autoconf >= 2.59-3
@@ -63,7 +65,7 @@ Inkscape jest programem do przegl±dania, tworzenia i edycji
 dwuwymiarowej grafiki wektorowej.
 
 %prep
-%setup -q
+%setup -q -n inkscape-%{_snap_date}-%{_snap_time}
 %patch0 -p1
 
 %build

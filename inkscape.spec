@@ -12,12 +12,13 @@
 Summary:	Scalable vector graphics editor
 Summary(pl):	Edytor skalowalnej grafiki wektorowej
 Name:		inkscape
-Version:	0.44
-Release:	4
+Version:	0.44.1
+Release:	1
 License:	GPL v2, LGPL v2.1
 Group:		Applications/Graphics
-Source0:	http://dl.sourceforge.net/inkscape/%{name}-%{version}.tar.bz2
-# Source0-md5:	f0bf316e15ddc6009976d97388522f85
+Source0:	http://dl.sourceforge.net/inkscape/%{name}-%{version}.tar.gz
+# Source0-md5:	ae2929f70403004038963ef2448728f3
+Patch0:		%{name}-ac.patch
 URL:		http://www.inkscape.org/
 BuildRequires:	autoconf >= 2.59-3
 BuildRequires:	automake >= 1:1.9.4-2
@@ -63,6 +64,7 @@ dwuwymiarowej grafiki wektorowej.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
 %{__libtoolize}
@@ -121,7 +123,6 @@ update-mime-database %{_datadir}/mime >/dev/null 2>&1
 %dir %{_datadir}/inkscape/extensions
 %{_datadir}/inkscape/extensions/*.cmd
 %{_datadir}/inkscape/extensions/*.inx
-%{_datadir}/inkscape/extensions/*.txt
 %{_datadir}/inkscape/extensions/*.xslt
 %attr(755,root,root) %{_datadir}/inkscape/extensions/*.pl
 %attr(755,root,root) %{_datadir}/inkscape/extensions/*.pm

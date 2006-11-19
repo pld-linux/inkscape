@@ -3,8 +3,8 @@
 #
 # Conditional build
 %bcond_without	xft		# Don't use xft scalable font database
-%bcond_without	gnome_print	# Don't use gnome print font database and spooler frontend
-%bcond_without	gnome_vfs	# Don't use gnome vfs for loading files
+%bcond_without	gnomeprint	# Don't use gnome print font database and spooler frontend
+%bcond_without	gnomevfs	# Don't use gnome vfs for loading files
 %bcond_without	mmx		# Force building without MMX optimazation (Default: auto-detect)
 %bcond_with	inkboard	# Enable inkboard support
 %bcond_with	relocation	# Enable binary relocation support
@@ -28,14 +28,14 @@ BuildRequires:	freetype-devel >= 2.0
 BuildRequires:	gcc-c++ >= 3.0
 BuildRequires:	gc-devel >= 6.4
 BuildRequires:	gettext-devel
-%{?with_gnome_vfs:BuildRequires:	gnome-vfs2-devel >= 2.15.2}
+%{?with_gnomevfs:BuildRequires:	gnome-vfs2-devel >= 2.15.2}
 BuildRequires:	gtk+2-devel >= 2:2.9.4
 BuildRequires:	gtkmm-devel >= 2.4
 BuildRequires:	gtkspell-devel >= 2.0.11
 BuildRequires:	intltool >= 0.35.0
 BuildRequires:	lcms-devel >= 1.15
 BuildRequires:	libart_lgpl-devel >= 2.3.10
-%{?with_gnome_print:BuildRequires:	libgnomeprintui-devel >= 2.12.1}
+%{?with_gnomeprint:BuildRequires:	libgnomeprintui-devel >= 2.12.1}
 BuildRequires:	libpng-devel >= 1.2
 BuildRequires:	libsigc++-devel >= 2.0.17
 BuildRequires:	libtool
@@ -49,7 +49,7 @@ BuildRequires:	rpm-pythonprov
 BuildRequires:	zlib-devel
 Requires(post,postun):	shared-mime-info
 Requires:	gc >= 6.4
-%{?with_gnome_vfs:Requires:	gnome-vfs2 >= 2.15.2}
+%{?with_gnomevfs:Requires:	gnome-vfs2 >= 2.15.2}
 Requires:	gtk+2 >= 2:2.9.4
 Requires:	perl-XML-XQL
 Buildroot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -76,9 +76,9 @@ dwuwymiarowej grafiki wektorowej.
 %{__autoconf}
 %configure \
 	%{!?with_xft: --without-xft} \
-	%{!?with_gnome_print:--without-gnome-print} \
-	%{?with_gnome_print:--with-gnome-print} \
-	%{!?with_gnome_vfs:--without-gnome-vfs} \
+	%{!?with_gnomeprint:--without-gnome-print} \
+	%{?with_gnomeprint:--with-gnome-print} \
+	%{!?with_gnomevfs:--without-gnome-vfs} \
 	%{!?with_mmx:--disable-mmx} \
 	%{?with_relocation:--enable-binreloc} \
 	%{?with_inkboard:--enable-inkboard} \

@@ -113,12 +113,15 @@ update-mime-database %{_datadir}/mime >/dev/null 2>&1
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
-%doc AUTHORS ChangeLog NEWS README TRANSLATORS
+%doc AUTHORS ChangeLog HACKING.txt NEWS README TRANSLATORS
 %lang(ca) %doc README.ca.txt
 %lang(de) %doc README.de.txt
 %lang(es) %doc README.es.txt
 %lang(fr) %doc README.fr.txt
 %lang(it) %doc README.it.txt
+%lang(de) %doc HACKING.de.txt
+%lang(fr) %doc HACKING.fr.txt
+%lang(it) %doc HACKING.it.txt
 %attr(755,root,root) %{_bindir}/*
 %dir %{_datadir}/inkscape
 %{_datadir}/inkscape/[!e]*
@@ -126,10 +129,12 @@ update-mime-database %{_datadir}/mime >/dev/null 2>&1
 %dir %{_datadir}/inkscape/extensions
 %{_datadir}/inkscape/extensions/*.cmd
 %{_datadir}/inkscape/extensions/*.inx
+%{_datadir}/inkscape/extensions/*.txt
 %{_datadir}/inkscape/extensions/*.xslt
 %attr(755,root,root) %{_datadir}/inkscape/extensions/*.pl
 %attr(755,root,root) %{_datadir}/inkscape/extensions/*.pm
 %attr(755,root,root) %{_datadir}/inkscape/extensions/*.py
+%attr(755,root,root) %{_datadir}/inkscape/extensions/*.rb
 %attr(755,root,root) %{_datadir}/inkscape/extensions/*.sh
 %attr(755,root,root) %{_datadir}/inkscape/extensions/svg_dropshadow
 %{_mandir}/man1/*

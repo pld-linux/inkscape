@@ -12,12 +12,12 @@
 Summary:	Scalable vector graphics editor
 Summary(pl):	Edytor skalowalnej grafiki wektorowej
 Name:		inkscape
-Version:	0.44.1
+Version:	0.45
 Release:	1
 License:	GPL v2, LGPL v2.1
 Group:		Applications/Graphics
 Source0:	http://dl.sourceforge.net/inkscape/%{name}-%{version}.tar.gz
-# Source0-md5:	ae2929f70403004038963ef2448728f3
+# Source0-md5:	82d7cff90a7de42460e65d289e0d4d33
 Patch0:		%{name}-ac.patch
 URL:		http://www.inkscape.org/
 BuildRequires:	autoconf >= 2.59-3
@@ -65,6 +65,9 @@ dwuwymiarowej grafiki wektorowej.
 %prep
 %setup -q
 %patch0 -p1
+mv -f po/{en_US@piglatin,en_US}.po
+sed -i -e 's|en_US@piglatin|en_US|' po/Makefile.mingw
+sed -i -e 's|en_US@piglatin|en_US|' configure*
 
 %build
 %{__libtoolize}

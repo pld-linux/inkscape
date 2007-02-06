@@ -65,9 +65,9 @@ dwuwymiarowej grafiki wektorowej.
 %prep
 %setup -q
 %patch0 -p1
-mv -f po/{en_US@piglatin,en_US}.po
-sed -i -e 's|en_US@piglatin|en_US|' po/Makefile.mingw
-sed -i -e 's|en_US@piglatin|en_US|' configure*
+rm -f po/en_US@piglatin.po
+sed -i -e 's|en_US@piglatin||' po/Makefile.mingw
+sed -i -e 's|en_US@piglatin||' configure*
 
 %build
 %{__libtoolize}

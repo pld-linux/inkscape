@@ -10,7 +10,7 @@
 %bcond_with	relocation	# Enable binary relocation support
 #
 Summary:	Scalable vector graphics editor
-Summary(pl):	Edytor skalowalnej grafiki wektorowej
+Summary(pl.UTF-8):   Edytor skalowalnej grafiki wektorowej
 Name:		inkscape
 Version:	0.45
 Release:	1
@@ -58,8 +58,8 @@ Buildroot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Inkscape is a program for viewing, making, and editing two-dimensional
 vector drawings.
 
-%description -l pl
-Inkscape jest programem do przegl±dania, tworzenia i edycji
+%description -l pl.UTF-8
+Inkscape jest programem do przeglÄ…dania, tworzenia i edycji
 dwuwymiarowej grafiki wektorowej.
 
 %prep

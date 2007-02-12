@@ -12,7 +12,7 @@
 %define		_snap_date	20061110
 %define		_snap_time	0200
 Summary:	Scalable vector graphics editor
-Summary(pl):	Edytor skalowalnej grafiki wektorowej
+Summary(pl.UTF-8):   Edytor skalowalnej grafiki wektorowej
 Name:		inkscape
 Version:	0.45
 Release:	0.%{_snap_date}.%{_snap_time}.1
@@ -60,8 +60,8 @@ Buildroot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Inkscape is a program for viewing, making, and editing two-dimensional
 vector drawings.
 
-%description -l pl
-Inkscape jest programem do przegl±dania, tworzenia i edycji
+%description -l pl.UTF-8
+Inkscape jest programem do przeglÄ…dania, tworzenia i edycji
 dwuwymiarowej grafiki wektorowej.
 
 %prep

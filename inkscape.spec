@@ -10,7 +10,7 @@
 %bcond_with	relocation	# Enable binary relocation support
 #
 Summary:	Scalable vector graphics editor
-Summary(pl.UTF-8):   Edytor skalowalnej grafiki wektorowej
+Summary(pl.UTF-8):	Edytor skalowalnej grafiki wektorowej
 Name:		inkscape
 Version:	0.45
 Release:	1

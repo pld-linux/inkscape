@@ -19,6 +19,7 @@ Group:		Applications/Graphics
 Source0:	http://dl.sourceforge.net/inkscape/%{name}-%{version}.tar.gz
 # Source0-md5:	1ac63dfd5d78a676599bf5cf6d22e493
 Patch0:		%{name}-ac.patch
+Patch1:		%{name}-desktop.patch
 URL:		http://www.inkscape.org/
 BuildRequires:	autoconf >= 2.59-3
 BuildRequires:	automake >= 1:1.9.4-2
@@ -65,6 +66,7 @@ dwuwymiarowej grafiki wektorowej.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
 rm -f po/en_US@piglatin.po
 sed -i -e 's|en_US@piglatin||' configure.ac
 

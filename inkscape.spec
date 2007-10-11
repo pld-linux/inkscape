@@ -13,7 +13,7 @@ Summary:	Scalable vector graphics editor
 Summary(pl.UTF-8):	Edytor skalowalnej grafiki wektorowej
 Name:		inkscape
 Version:	0.45.1
-Release:	2
+Release:	3
 License:	GPL v2, LGPL v2.1
 Group:		Applications/Graphics
 Source0:	http://dl.sourceforge.net/inkscape/%{name}-%{version}.tar.gz
@@ -26,7 +26,7 @@ BuildRequires:	automake >= 1:1.9.4-2
 BuildRequires:	boost-any-devel
 BuildRequires:	boost-bind-devel
 BuildRequires:	freetype-devel >= 2.0
-BuildRequires:	gcc-c++ >= 3.0
+BuildRequires:	gcc-c++ >= 6:4.2.2-2
 BuildRequires:	gc-devel >= 6.4
 BuildRequires:	gettext-devel
 %{?with_gnomevfs:BuildRequires:	gnome-vfs2-devel >= 2.15.2}

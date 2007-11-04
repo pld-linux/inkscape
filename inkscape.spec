@@ -13,7 +13,7 @@ Summary:	Scalable vector graphics editor
 Summary(pl.UTF-8):	Edytor skalowalnej grafiki wektorowej
 Name:		inkscape
 Version:	0.45.1
-Release:	3
+Release:	4
 License:	GPL v2, LGPL v2.1
 Group:		Applications/Graphics
 Source0:	http://dl.sourceforge.net/inkscape/%{name}-%{version}.tar.gz
@@ -53,7 +53,9 @@ Requires:	gc >= 6.4
 %{?with_gnomevfs:Requires:	gnome-vfs2 >= 2.15.2}
 Requires:	gtk+2 >= 2:2.9.4
 Requires:	perl-XML-XQL
-Buildroot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+# sr@Latn vs. sr@latin
+Conflicts:	glibc-misc < 6:2.7
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
 Inkscape is a program for viewing, making, and editing two-dimensional
@@ -96,6 +98,8 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
+[ -d $RPM_BUILD_ROOT%{_datadir}/locale/sr@latin ] || \
+	mv -f $RPM_BUILD_ROOT%{_datadir}/locale/sr@{Latn,latin}
 %find_lang %{name}
 
 %clean

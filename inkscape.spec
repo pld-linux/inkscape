@@ -12,13 +12,12 @@
 Summary:	Scalable vector graphics editor
 Summary(pl.UTF-8):	Edytor skalowalnej grafiki wektorowej
 Name:		inkscape
-Version:	0.45.1
-Release:	5
+Version:	0.46
+Release:	1
 License:	GPL v2, LGPL v2.1
 Group:		Applications/Graphics
 Source0:	http://dl.sourceforge.net/inkscape/%{name}-%{version}.tar.gz
-# Source0-md5:	1ac63dfd5d78a676599bf5cf6d22e493
-Patch0:		%{name}-ac.patch
+# Source0-md5:	3bae9034047379012127e52f9b138d32
 Patch1:		%{name}-desktop.patch
 URL:		http://www.inkscape.org/
 BuildRequires:	autoconf >= 2.59-3
@@ -67,7 +66,6 @@ dwuwymiarowej grafiki wektorowej.
 
 %prep
 %setup -q
-%patch0 -p1
 %patch1 -p1
 rm -f po/en_US@piglatin.po
 sed -i -e 's|en_US@piglatin||' configure.ac
@@ -135,13 +133,18 @@ update-mime-database %{_datadir}/mime >/dev/null 2>&1
 %{_datadir}/inkscape/extensions/*.cmd
 %{_datadir}/inkscape/extensions/*.inx
 %{_datadir}/inkscape/extensions/*.txt
+%{_datadir}/inkscape/extensions/*.xml
+%{_datadir}/inkscape/extensions/*.xsl
 %{_datadir}/inkscape/extensions/*.xslt
 %attr(755,root,root) %{_datadir}/inkscape/extensions/*.pl
 %attr(755,root,root) %{_datadir}/inkscape/extensions/*.pm
 %attr(755,root,root) %{_datadir}/inkscape/extensions/*.py
 %attr(755,root,root) %{_datadir}/inkscape/extensions/*.rb
 %attr(755,root,root) %{_datadir}/inkscape/extensions/*.sh
-%attr(755,root,root) %{_datadir}/inkscape/extensions/svg_dropshadow
+%dir %{_datadir}/inkscape/extensions/Barcode
+%attr(755,root,root) %{_datadir}/inkscape/extensions/Barcode/*.py
+%dir %{_datadir}/inkscape/extensions/xaml2svg
+%{_datadir}/inkscape/extensions/xaml2svg/*.xsl
 %{_mandir}/man1/*
 %lang(fr) %{_mandir}/fr/man1/*
 %{_pixmapsdir}/*.png

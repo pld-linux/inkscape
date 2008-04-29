@@ -22,8 +22,7 @@ Patch1:		%{name}-desktop.patch
 URL:		http://www.inkscape.org/
 BuildRequires:	autoconf >= 2.59-3
 BuildRequires:	automake >= 1:1.9.4-2
-BuildRequires:	boost-any-devel
-BuildRequires:	boost-bind-devel
+BuildRequires:	boost-devel >= 1.35.0
 BuildRequires:	freetype-devel >= 2.0
 BuildRequires:	gcc-c++ >= 6:4.2.2-2
 BuildRequires:	gc-devel >= 6.4

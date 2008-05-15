@@ -51,6 +51,7 @@ Requires:	gc >= 6.4
 %{?with_gnomevfs:Requires:	gnome-vfs2 >= 2.15.2}
 Requires:	gtk+2 >= 2:2.9.4
 Requires:	perl-XML-XQL
+Suggests:	python-lxml
 # sr@Latn vs. sr@latin
 Conflicts:	glibc-misc < 6:2.7
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)

@@ -1,0 +1,11 @@
+diff -urN inkscape-0.46/src/dom/io/uristream.cpp inkscape-0.46.new/src/dom/io/uristream.cpp
+--- inkscape-0.46/src/dom/io/uristream.cpp	2008-03-11 05:19:31.000000000 +0100
++++ inkscape-0.46.new/src/dom/io/uristream.cpp	2008-07-11 20:02:59.105086069 +0200
+@@ -39,6 +39,7 @@
+  * Released under GNU GPL, read the file 'COPYING' for more information
+  */
+ 
++#include <cstring>
+ 
+ #include "uristream.h"
+ 

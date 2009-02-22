@@ -28,6 +28,7 @@ BuildRequires:	gcc-c++ >= 6:4.2.2-2
 BuildRequires:	gc-devel >= 6.4
 BuildRequires:	gettext-devel
 %{?with_gnomevfs:BuildRequires:	gnome-vfs2-devel >= 2.15.2}
+BuildRequires:	gsl-devel
 BuildRequires:	gtk+2-devel >= 2:2.9.4
 BuildRequires:	gtkmm-devel >= 2.10.0
 BuildRequires:	gtkspell-devel >= 2.0.11

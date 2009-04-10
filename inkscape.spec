@@ -3,54 +3,60 @@
 #
 # Conditional build
 %bcond_without	xft		# Don't use xft scalable font database
-%bcond_without	gnomeprint	# Don't use gnome print font database and spooler frontend
 %bcond_without	gnomevfs	# Don't use gnome vfs for loading files
 %bcond_without	mmx		# Force building without MMX optimazation (Default: auto-detect)
 %bcond_with	inkboard	# Enable inkboard support
 %bcond_with	relocation	# Enable binary relocation support
 #
-%define		_svnrev		20605
+%define		_svnrev		21114
 Summary:	Scalable vector graphics editor
 Summary(pl.UTF-8):	Edytor skalowalnej grafiki wektorowej
 Name:		inkscape
 Version:	0.47
 Release:	0.%{_svnrev}.1
 License:	GPL v2, LGPL v2.1
-Group:		Applications/Graphics
+Group:		X11/Applications/Graphics
 Source0:	http://inkscape.modevia.com/svn-snap/%{name}-%{_svnrev}.tar.bz2
-# Source0-md5:	9e172df11f7ea68360c6c6c41c5001e0
+# Source0-md5:	e5e8a794067c0c95210ebc72e33225c4
 URL:		http://www.inkscape.org/
+BuildRequires:	ImageMagick-c++-devel
+BuildRequires:	aspell-devel
 BuildRequires:	autoconf >= 2.59-3
 BuildRequires:	automake >= 1:1.9.4-2
 BuildRequires:	boost-devel >= 1.35.0
+BuildRequires:	cairo-devel >= 1.7.7
 BuildRequires:	freetype-devel >= 2.0
-BuildRequires:	gcc-c++ >= 6:4.2.2-2
 BuildRequires:	gc-devel >= 6.4
 BuildRequires:	gettext-devel
 %{?with_gnomevfs:BuildRequires:	gnome-vfs2-devel >= 2.15.2}
 BuildRequires:	gsl-devel
-BuildRequires:	gtk+2-devel >= 2:2.9.4
+BuildRequires:	gtk+2-devel >= 2:2.10.0
 BuildRequires:	gtkmm-devel >= 2.10.0
 BuildRequires:	gtkspell-devel >= 2.0.11
 BuildRequires:	intltool >= 0.35.0
 BuildRequires:	lcms-devel >= 1.15
-BuildRequires:	libart_lgpl-devel >= 2.3.10
-%{?with_gnomeprint:BuildRequires:	libgnomeprintui-devel >= 2.12.1}
 BuildRequires:	libpng-devel >= 1.2
 BuildRequires:	libsigc++-devel >= 2.0.17
+BuildRequires:	libstdc++-devel >= 6:4.2.2-2
 BuildRequires:	libtool
+BuildRequires:	libwpg-devel
 BuildRequires:	libxml2-devel >= 1:2.6.26
 BuildRequires:	libxslt-devel >= 1.1.17
-%{?with_inkboard:BuildRequires:	loudmouth-devel >= 1.0.3}
+%{?with_inkboard:BuildRequires:	openssl-devel}
 BuildRequires:	pkgconfig
+BuildRequires:	poppler-glib-devel >= 0.8.3
 BuildRequires:	popt-devel
 BuildRequires:	rpm-pythonprov
+BuildRequires:	rpmbuild(macros) >= 1.311
 %{?with_xft:BuildRequires:	xorg-lib-libXft-devel}
 BuildRequires:	zlib-devel
+Requires(post,postun):	desktop-file-utils
+Requires(post,postun):	gtk+2
 Requires(post,postun):	shared-mime-info
 Requires:	gc >= 6.4
 %{?with_gnomevfs:Requires:	gnome-vfs2 >= 2.15.2}
-Requires:	gtk+2 >= 2:2.9.4
+Requires:	gtk+2 >= 2:2.10.0
+Requires:	hicolor-icon-theme
 Requires:	perl-XML-XQL
 Suggests:	python-lxml
 # sr@Latn vs. sr@latin
@@ -83,8 +89,6 @@ sed -i -e 's|en_US@piglatin||' configure.ac
 %{__autoconf}
 %configure \
 	%{!?with_xft: --without-xft} \
-	%{!?with_gnomeprint:--without-gnome-print} \
-	%{?with_gnomeprint:--with-gnome-print} \
 	%{!?with_gnomevfs:--without-gnome-vfs} \
 	%{!?with_mmx:--disable-mmx} \
 	%{?with_relocation:--enable-binreloc} \
@@ -99,23 +103,20 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-[ -d $RPM_BUILD_ROOT%{_datadir}/locale/sr@latin ] || \
-	mv -f $RPM_BUILD_ROOT%{_datadir}/locale/sr@{Latn,latin}
 %find_lang %{name}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-
 %post
-umask 022
-update-mime-database %{_datadir}/mime >/dev/null 2>&1 ||:
-[ ! -x /usr/bin/update-desktop-database ] || /usr/bin/update-desktop-database >/dev/null 2>&1 ||:
+%update_desktop_database_post
+%update_mime_database
+%update_icon_cache hicolor
 
 %postun
-umask 022
-update-mime-database %{_datadir}/mime >/dev/null 2>&1
-[ ! -x /usr/bin/update-desktop-database ] || /usr/bin/update-desktop-database >/dev/null 2>&1
+%update_desktop_database_postun
+%update_mime_database
+%update_icon_cache hicolor
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
@@ -128,12 +129,14 @@ update-mime-database %{_datadir}/mime >/dev/null 2>&1
 %lang(de) %doc HACKING.de.txt
 %lang(fr) %doc HACKING.fr.txt
 %lang(it) %doc HACKING.it.txt
-%attr(755,root,root) %{_bindir}/*
+%attr(755,root,root) %{_bindir}/inkscape
+%attr(755,root,root) %{_bindir}/inkview
 %dir %{_datadir}/inkscape
 %{_datadir}/inkscape/[!e]*
 %{_datadir}/inkscape/examples
 %dir %{_datadir}/inkscape/extensions
 %{_datadir}/inkscape/extensions/*.inx
+%{_datadir}/inkscape/extensions/*.js
 %{_datadir}/inkscape/extensions/*.xml
 %{_datadir}/inkscape/extensions/*.xsl
 %{_datadir}/inkscape/extensions/*.xslt
@@ -150,7 +153,8 @@ update-mime-database %{_datadir}/mime >/dev/null 2>&1
 %attr(755,root,root) %{_datadir}/inkscape/extensions/Barcode/*.py
 %dir %{_datadir}/inkscape/extensions/xaml2svg
 %{_datadir}/inkscape/extensions/xaml2svg/*.xsl
-%{_mandir}/man1/*
-%lang(fr) %{_mandir}/fr/man1/*
+%{_mandir}/man1/*.1*
+%lang(fr) %{_mandir}/fr/man1/*.1*
 %{_pixmapsdir}/*.png
-%{_desktopdir}/*.desktop
+%{_desktopdir}/inkscape.desktop
+%{_iconsdir}/hicolor/*/*/*.svg

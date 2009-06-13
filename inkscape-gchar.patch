@@ -1,0 +1,45 @@
+diff -Nur orig/src/dialogs/export.cpp chng/src/dialogs/export.cpp
+--- orig/src/dialogs/export.cpp	2008-03-11 05:19:54.000000000 +0100
++++ chng/src/dialogs/export.cpp	2009-05-26 11:58:15.000000000 +0200
+@@ -1043,7 +1043,7 @@
+ {
+   gchar *dot;
+ 
+-  dot = strrchr (filename, '.');
++  dot = (gchar*)strrchr (filename, '.');
+   if ( !dot )
+     return g_strconcat (filename, ".", extension, NULL);
+   {
+diff -Nur orig/src/document.cpp chng/src/document.cpp
+--- orig/src/document.cpp	2008-03-11 05:20:34.000000000 +0100
++++ chng/src/document.cpp	2009-05-26 11:36:28.000000000 +0200
+@@ -746,7 +746,7 @@
+         }
+         
+         if ( NULL != document_language ) {
+-            gchar *pos = strchr(document_language, '_');
++            gchar *pos = (gchar*)strchr(document_language, '_');
+             if ( NULL != pos ) {
+                 return Glib::ustring(document_language, pos - document_language);
+             }
+diff -Nur orig/src/prefix.cpp chng/src/prefix.cpp
+--- orig/src/prefix.cpp	2008-03-11 05:20:27.000000000 +0100
++++ chng/src/prefix.cpp	2009-05-26 11:37:09.000000000 +0200
+@@ -359,7 +359,7 @@
+ 
+ 	br_return_val_if_fail (path != (char*)NULL, (char*)NULL);
+ 
+-	end = strrchr (path, '/');
++	end = (gchar*)strrchr (path, '/');
+ 	if (!end) return strdup (".");
+ 
+ 	while (end > path && *end == '/')
+@@ -395,7 +395,7 @@
+ 	br_return_val_if_fail (path != (char*)NULL, (char*)NULL);
+ 
+ 	if (!*path) return strdup ("/");
+-	end = strrchr (path, '/');
++	end = (gchar*)strrchr (path, '/');
+ 	if (!end) return strdup (path);
+ 
+ 	tmp = br_strndup ((char *) path, end - path);

@@ -9,15 +9,19 @@
 %bcond_with	inkboard	# Enable inkboard support
 %bcond_with	relocation	# Enable binary relocation support
 #
+
+# just set it nil when non-preview arrives
+%define beta pre3
+
 Summary:	Scalable vector graphics editor
 Summary(pl.UTF-8):	Edytor skalowalnej grafiki wektorowej
 Name:		inkscape
-Version:	0.46
-Release:	8
+Version:	0.47
+Release:	0.%{beta}.1
 License:	GPL v2, LGPL v2.1
 Group:		Applications/Graphics
-Source0:	http://dl.sourceforge.net/inkscape/%{name}-%{version}.tar.gz
-# Source0-md5:	3bae9034047379012127e52f9b138d32
+Source0:	http://dl.sourceforge.net/inkscape/%{name}-%{version}%{beta}.tar.bz2
+# Source0-md5:	eaf529011bb4bc8879ff669a4c7f000d
 Patch0:		%{name}-desktop.patch
 Patch1:		%{name}-poppler.patch
 Patch2:		%{name}-gcc43.patch
@@ -39,6 +43,7 @@ BuildRequires:	gettext-devel
 BuildRequires:	gtk+2-devel >= 2:2.9.4
 BuildRequires:	gtkmm-devel >= 2.10.0
 BuildRequires:	gtkspell-devel >= 2.0.11
+BuildRequires:	gsl-devel
 BuildRequires:	intltool >= 0.35.0
 BuildRequires:	lcms-devel >= 1.15
 BuildRequires:	libart_lgpl-devel >= 2.3.10
@@ -73,16 +78,16 @@ Inkscape jest programem do przeglądania, tworzenia i edycji
 dwuwymiarowej grafiki wektorowej.
 
 %prep
-%setup -q
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
-%patch4 -p1
-%patch5 -p1
-%patch6 -p1
-%patch7 -p1
-%patch8 -p1
+%setup -q -n %{name}-%{version}%{beta}
+#%patch0 -p1
+#%patch1 -p1
+#%patch2 -p1
+#%patch3 -p1
+#%patch4 -p1
+#%patch5 -p1
+#%patch6 -p1
+#%patch7 -p1
+#%patch8 -p1
 
 
 rm -f po/ca@valencia.po
@@ -150,9 +155,10 @@ update-mime-database %{_datadir}/mime >/dev/null 2>&1
 %{_datadir}/inkscape/[!e]*
 %{_datadir}/inkscape/examples
 %dir %{_datadir}/inkscape/extensions
-%{_datadir}/inkscape/extensions/*.cmd
+%{_datadir}/inkscape/extensions/Poly3DObjects/
+%{_datadir}/inkscape/extensions/alphabet_soup/
 %{_datadir}/inkscape/extensions/*.inx
-%{_datadir}/inkscape/extensions/*.txt
+%{_datadir}/inkscape/extensions/*.js
 %{_datadir}/inkscape/extensions/*.xml
 %{_datadir}/inkscape/extensions/*.xsl
 %{_datadir}/inkscape/extensions/*.xslt

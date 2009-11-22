@@ -11,17 +11,17 @@
 #
 
 # just set it nil when non-preview arrives
-%define beta pre3
+%define beta %{nil}
 
 Summary:	Scalable vector graphics editor
 Summary(pl.UTF-8):	Edytor skalowalnej grafiki wektorowej
 Name:		inkscape
 Version:	0.47
-Release:	0.%{beta}.1
+Release:	1
 License:	GPL v2, LGPL v2.1
 Group:		Applications/Graphics
 Source0:	http://dl.sourceforge.net/inkscape/%{name}-%{version}%{beta}.tar.bz2
-# Source0-md5:	eaf529011bb4bc8879ff669a4c7f000d
+# Source0-md5:	7b497c8f673e40b05295a29f6e2111f4
 Patch0:		%{name}-desktop.patch
 Patch1:		%{name}-poppler.patch
 Patch2:		%{name}-gcc43.patch

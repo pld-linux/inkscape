@@ -1,0 +1,15 @@
+diff -urN inkscape-0.47/configure.ac inkscape-0.47.new//configure.ac
+--- inkscape-0.47/configure.ac	2009-11-16 21:45:59.000000000 +0100
++++ inkscape-0.47.new//configure.ac	2010-07-29 11:08:54.786331341 +0200
+@@ -849,6 +849,11 @@
+ dnl AM_CONDITIONAL(ENABLE_LIBINKSCAPE, test "x$splib" != "xno")
+ dnl
+ 
++dnl ******************************
++dnl   add -ldl
++dnl ******************************
++INKSCAPE_LIBS="$INKSCAPE_LIBS -ldl"
++
+ AC_SUBST(INKSCAPE_CFLAGS)
+ AC_SUBST(INKSCAPE_LIBS)
+ 

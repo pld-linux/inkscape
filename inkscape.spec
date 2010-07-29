@@ -16,13 +16,15 @@ Summary:	Scalable vector graphics editor
 Summary(pl.UTF-8):	Edytor skalowalnej grafiki wektorowej
 Name:		inkscape
 Version:	0.47
-Release:	4
+Release:	5
 License:	GPL v2, LGPL v2.1
 Group:		X11/Applications/Graphics
 Source0:	http://dl.sourceforge.net/inkscape/%{name}-%{version}%{beta}.tar.bz2
 # Source0-md5:	7b497c8f673e40b05295a29f6e2111f4
 # workaround for https://bugs.launchpad.net/inkscape/+bug/487038
 Patch0:		%{name}-poppler.patch
+Patch1:		%{name}-gcc45.patch
+Patch2:		%{name}-ldl.patch
 URL:		http://www.inkscape.org/
 BuildRequires:	ImageMagick-c++-devel
 BuildRequires:	aspell-devel
@@ -77,6 +79,8 @@ dwuwymiarowej grafiki wektorowej.
 %prep
 %setup -q -n %{name}-%{version}%{beta}
 %patch0 -p1
+%patch1 -p1
+%patch2 -p1
 
 rm -f po/en_US@piglatin.po
 sed -i -e 's|en_US@piglatin||' configure.ac

@@ -15,16 +15,14 @@
 Summary:	Scalable vector graphics editor
 Summary(pl.UTF-8):	Edytor skalowalnej grafiki wektorowej
 Name:		inkscape
-Version:	0.47
-Release:	6
-License:	GPL v2, LGPL v2.1
+Version:	0.48.0
+Release:	1
+License:	GPL v2+, LGPL v2.1+
 Group:		X11/Applications/Graphics
-Source0:	http://dl.sourceforge.net/inkscape/%{name}-%{version}%{beta}.tar.bz2
-# Source0-md5:	7b497c8f673e40b05295a29f6e2111f4
+Source0:	http://downloads.sourceforge.net/inkscape/%{name}-%{version}%{beta}.tar.bz2
+# Source0-md5:	fd8b17a3f06668603807176a77167bb9
 # workaround for https://bugs.launchpad.net/inkscape/+bug/487038
-Patch0:		%{name}-poppler.patch
-Patch1:		%{name}-gcc45.patch
-Patch2:		%{name}-ldl.patch
+Patch0:		%{name}-ldl.patch
 URL:		http://www.inkscape.org/
 BuildRequires:	ImageMagick-c++-devel
 BuildRequires:	aspell-devel
@@ -33,23 +31,23 @@ BuildRequires:	automake >= 1:1.9.4-2
 BuildRequires:	boost-devel >= 1.35.0
 BuildRequires:	cairo-devel >= 1.8.0
 BuildRequires:	freetype-devel >= 2.0
-BuildRequires:	gcc-c++ >= 6:4.2.2-2
 BuildRequires:	gc-devel >= 6.4
 BuildRequires:	gettext-devel
 BuildRequires:	glibmm-devel >= 2.16.0
 %{?with_gnomevfs:BuildRequires:	gnome-vfs2-devel >= 2.15.2}
+BuildRequires:	gsl-devel
 BuildRequires:	gtk+2-devel >= 2:2.14.0
 BuildRequires:	gtkmm-devel >= 2.10.0
 BuildRequires:	gtkspell-devel >= 2.0.11
-BuildRequires:	gsl-devel
 BuildRequires:	intltool >= 0.35.0
 BuildRequires:	lcms-devel >= 1.15
 BuildRequires:	libpng-devel >= 1.2
 BuildRequires:	libsigc++-devel >= 2.0.17
+BuildRequires:	libstdc++-devel >= 6:4.2.2-2
 BuildRequires:	libtool
+BuildRequires:	libwpg-devel
 BuildRequires:	libxml2-devel >= 1:2.6.26
 BuildRequires:	libxslt-devel >= 1.1.17
-BuildRequires:	libwpg-devel
 %{?with_inkboard:BuildRequires:	loudmouth-devel >= 1.0.3}
 BuildRequires:	pkgconfig
 BuildRequires:	poppler-glib-devel >= 0.12.2
@@ -79,11 +77,9 @@ dwuwymiarowej grafiki wektorowej.
 %prep
 %setup -q -n %{name}-%{version}%{beta}
 %patch0 -p1
-%patch1 -p1
-%patch2 -p1
 
 rm -f po/en_US@piglatin.po
-sed -i -e 's|en_US@piglatin||' configure.ac
+%{__sed} -i -e 's|en_US@piglatin||' configure.ac
 
 %build
 %{__libtoolize}
@@ -122,15 +118,15 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
-%doc AUTHORS ChangeLog HACKING.txt NEWS README TRANSLATORS
+%doc AUTHORS ChangeLog NEWS README TRANSLATORS doc/HACKING.txt
 %lang(ca) %doc README.ca.txt
 %lang(de) %doc README.de.txt
 %lang(es) %doc README.es.txt
 %lang(fr) %doc README.fr.txt
 %lang(it) %doc README.it.txt
-%lang(de) %doc HACKING.de.txt
-%lang(fr) %doc HACKING.fr.txt
-%lang(it) %doc HACKING.it.txt
+%lang(de) %doc doc/HACKING.de.txt
+%lang(fr) %doc doc/HACKING.fr.txt
+%lang(it) %doc doc/HACKING.it.txt
 %attr(755,root,root) %{_bindir}/inkscape
 %attr(755,root,root) %{_bindir}/inkview
 %dir %{_datadir}/inkscape
@@ -155,5 +151,5 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/inkscape/extensions/xaml2svg/*.xsl
 %{_mandir}/man1/*.1*
 %lang(fr) %{_mandir}/fr/man1/*.1*
-%{_pixmapsdir}/*.png
+%{_iconsdir}/hicolor/*/apps/inkscape.png
 %{_desktopdir}/inkscape.desktop

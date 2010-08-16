@@ -16,7 +16,7 @@ Summary:	Scalable vector graphics editor
 Summary(pl.UTF-8):	Edytor skalowalnej grafiki wektorowej
 Name:		inkscape
 Version:	0.48.0
-Release:	2
+Release:	3
 License:	GPL v2+, LGPL v2.1+
 Group:		X11/Applications/Graphics
 Source0:	http://downloads.sourceforge.net/inkscape/%{name}-%{version}%{beta}.tar.bz2
@@ -104,7 +104,7 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-rm -r $RPM_BUILD_ROOT%{_datadir}/te_IN
+rm -r $RPM_BUILD_ROOT%{_datadir}/locale/te_IN
 
 %find_lang %{name}
 

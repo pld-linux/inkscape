@@ -23,6 +23,7 @@ Source0:	http://downloads.sourceforge.net/inkscape/%{name}-%{version}%{beta}.tar
 # Source0-md5:	fd8b17a3f06668603807176a77167bb9
 # workaround for https://bugs.launchpad.net/inkscape/+bug/487038
 Patch0:		%{name}-ldl.patch
+Patch1:		%{name}-poppler-0.16.patch
 URL:		http://www.inkscape.org/
 BuildRequires:	ImageMagick-c++-devel
 BuildRequires:	aspell-devel
@@ -77,6 +78,7 @@ dwuwymiarowej grafiki wektorowej.
 %prep
 %setup -q -n %{name}-%{version}%{beta}
 %patch0 -p1
+%patch1 -p1
 
 rm -f po/en_US@piglatin.po
 %{__sed} -i -e 's|en_US@piglatin||' configure.ac

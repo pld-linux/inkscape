@@ -132,9 +132,13 @@ rm -rf $RPM_BUILD_ROOT
 %lang(es) %doc README.es.txt
 %lang(fr) %doc README.fr.txt
 %lang(it) %doc README.it.txt
+%lang(pt_BR) %doc README.it.txt
+%lang(sk) %doc README.it.txt
+%lang(sr) %doc README.it.txt
 %lang(de) %doc doc/HACKING.de.txt
 %lang(fr) %doc doc/HACKING.fr.txt
 %lang(it) %doc doc/HACKING.it.txt
+%lang(pt_BR) %doc doc/HACKING.it.txt
 %attr(755,root,root) %{_bindir}/inkscape
 %attr(755,root,root) %{_bindir}/inkview
 %dir %{_datadir}/inkscape
@@ -158,6 +162,10 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_datadir}/inkscape/extensions/xaml2svg
 %{_datadir}/inkscape/extensions/xaml2svg/*.xsl
 %{_mandir}/man1/*.1*
+%lang(el) %{_mandir}/el/man1/*.1*
 %lang(fr) %{_mandir}/fr/man1/*.1*
+%lang(ja) %{_mandir}/ja/man1/*.1*
+%lang(sk) %{_mandir}/sk/man1/*.1*
+%lang(zh_TW) %{_mandir}/zh_TW/man1/*.1*
 %{_iconsdir}/hicolor/*/apps/inkscape.png
 %{_desktopdir}/inkscape.desktop

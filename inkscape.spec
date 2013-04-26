@@ -30,7 +30,7 @@ BuildRequires:	ImageMagick-c++-devel
 BuildRequires:	aspell-devel
 BuildRequires:	autoconf >= 2.59-3
 BuildRequires:	automake >= 1:1.9.4-2
-BuildRequires:	boost-devel >= 1.35.0
+BuildRequires:	boost-devel >= 1.36
 BuildRequires:	cairo-devel >= 1.8.0
 BuildRequires:	freetype-devel >= 2.0
 BuildRequires:	gc-devel >= 6.4
@@ -42,27 +42,37 @@ BuildRequires:	gtk+2-devel >= 2:2.14.0
 BuildRequires:	gtkmm-devel >= 2.10.0
 BuildRequires:	gtkspell-devel >= 2.0.11
 BuildRequires:	intltool >= 0.35.0
-BuildRequires:	lcms-devel >= 1.15
+BuildRequires:	lcms2-devel >= 2
+BuildRequires:	libgomp-devel
 BuildRequires:	libpng-devel >= 1.2
 BuildRequires:	libsigc++-devel >= 2.0.17
 BuildRequires:	libstdc++-devel >= 6:4.2.2-2
 BuildRequires:	libtool
-BuildRequires:	libwpg-devel
+BuildRequires:	libwpd-devel >= 0.9
+BuildRequires:	libwpg-devel >= 0.2
 BuildRequires:	libxml2-devel >= 1:2.6.26
 BuildRequires:	libxslt-devel >= 1.1.17
 %{?with_inkboard:BuildRequires:	loudmouth-devel >= 1.0.3}
 BuildRequires:	pkgconfig
-BuildRequires:	poppler-glib-devel >= 0.12.2
+BuildRequires:	poppler-glib-devel >= 0.20.0
 BuildRequires:	popt-devel
 BuildRequires:	rpm-pythonprov
 BuildRequires:	sed >= 4.0
 %{?with_xft:BuildRequires:	xorg-lib-libXft-devel}
 BuildRequires:	zlib-devel
 Requires(post,postun):	desktop-file-utils
+Requires:	cairo >= 1.8.0
 Requires:	gc >= 6.4
+Requires:	glibmm >= 2.16.0
 %{?with_gnomevfs:Requires:	gnome-vfs2 >= 2.15.2}
 Requires:	gtk+2 >= 2:2.14.0
+Requires:	gtkmm >= 2.10.0
+Requires:	gtkspell >= 2.0.11
+Requires:	libsigc++ >= 2.0.17
+Requires:	libxml2 >= 1:2.6.26
+Requires:	libxslt >= 1.1.17
 Requires:	perl-XML-XQL
+Requires:	poppler-glib >= 0.20.0
 Suggests:	python-lxml
 # sr@Latn vs. sr@latin
 Conflicts:	glibc-misc < 6:2.7

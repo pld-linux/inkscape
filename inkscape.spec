@@ -35,7 +35,7 @@ BuildRequires:	boost-devel >= 1.36
 BuildRequires:	cairo-devel >= 1.8.0
 BuildRequires:	freetype-devel >= 2.0
 BuildRequires:	gc-devel >= 6.4
-BuildRequires:	gettext-devel
+BuildRequires:	gettext-tools
 BuildRequires:	glibmm-devel >= 2.16.0
 %{?with_gnomevfs:BuildRequires:	gnome-vfs2-devel >= 2.15.2}
 BuildRequires:	gsl-devel

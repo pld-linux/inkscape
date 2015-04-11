@@ -15,17 +15,16 @@
 Summary:	Scalable vector graphics editor
 Summary(pl.UTF-8):	Edytor skalowalnej grafiki wektorowej
 Name:		inkscape
-Version:	0.48.4
-Release:	12
+Version:	0.91
+Release:	1
 License:	GPL v2+, LGPL v2.1+
 Group:		X11/Applications/Graphics
-Source0:	http://downloads.sourceforge.net/inkscape/%{name}-%{version}%{beta}.tar.bz2
-# Source0-md5:	47bd8546e42ba396624eef9eb66b9b6c
+#Source0:	http://downloads.sourceforge.net/inkscape/%{name}-%{version}%{beta}.tar.bz2
+Source0:	https://inkscape.org/en/gallery/item/3860/%{name}-%{version}%{beta}.tar.bz2
+# Source0-md5:	278dfa4514adcde23546370ec2c84581
 # workaround for https://bugs.launchpad.net/inkscape/+bug/487038
 Patch0:		%{name}-ldl.patch
 Patch1:		%{name}-0.48.2-types.patch
-Patch2:		%{name}-build.patch
-Patch3:		%{name}-poppler-0.26.patch
 URL:		http://www.inkscape.org/
 BuildRequires:	ImageMagick-c++-devel
 BuildRequires:	aspell-devel
@@ -91,14 +90,6 @@ dwuwymiarowej grafiki wektorowej.
 %setup -q -n %{name}-%{version}%{beta}
 %patch0 -p1
 %patch1 -p1
-%patch2 -p1
-%patch3 -p0
-
-%{__rm} po/en_US@piglatin.po
-%{__sed} -i -e 's|en_US@piglatin||' configure.ac
-
-mv po/te_IN.po po/te.po
-%{__sed} -i -e 's|te_IN|te|' configure.ac
 
 %build
 %{__libtoolize}
@@ -165,14 +156,18 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/inkscape/extensions/*.xsl
 %{_datadir}/inkscape/extensions/*.xslt
 %attr(755,root,root) %{_datadir}/inkscape/extensions/*.pl
-%attr(755,root,root) %{_datadir}/inkscape/extensions/*.pm
 %attr(755,root,root) %{_datadir}/inkscape/extensions/*.py
 %attr(755,root,root) %{_datadir}/inkscape/extensions/*.rb
 %attr(755,root,root) %{_datadir}/inkscape/extensions/*.sh
+%dir %{_datadir}/inkscape/extensions/ink2canvas
+%attr(755,root,root) %{_datadir}/inkscape/extensions/ink2canvas/*.py
 %dir %{_datadir}/inkscape/extensions/Barcode
 %attr(755,root,root) %{_datadir}/inkscape/extensions/Barcode/*.py
 %dir %{_datadir}/inkscape/extensions/xaml2svg
 %{_datadir}/inkscape/extensions/xaml2svg/*.xsl
+%{_datadir}/inkscape/extensions/fontfix.conf
+%{_datadir}/inkscape/extensions/inkscape.extension.rng
+%{_datadir}/inkscape/extensions/jessyInk_video.svg
 %{_mandir}/man1/*.1*
 %lang(el) %{_mandir}/el/man1/*.1*
 %lang(fr) %{_mandir}/fr/man1/*.1*

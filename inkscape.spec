@@ -99,6 +99,7 @@ dwuwymiarowej grafiki wektorowej.
 %{__autoheader}
 %{__automake}
 %{__autoconf}
+CXXFLAGS="%{rpmcxxflags} -std=c++11"
 %configure \
 	--disable-silent-rules \
 	%{!?with_xft: --without-xft} \

@@ -16,7 +16,7 @@ Summary:	Scalable vector graphics editor
 Summary(pl.UTF-8):	Edytor skalowalnej grafiki wektorowej
 Name:		inkscape
 Version:	0.91
-Release:	9
+Release:	10
 License:	GPL v2+, LGPL v2.1+
 Group:		X11/Applications/Graphics
 #Source0:	http://downloads.sourceforge.net/inkscape/%{name}-%{version}%{beta}.tar.bz2
@@ -25,6 +25,7 @@ Source0:	https://inkscape.org/en/gallery/item/3860/%{name}-%{version}%{beta}.tar
 # workaround for https://bugs.launchpad.net/inkscape/+bug/487038
 Patch0:		%{name}-ldl.patch
 Patch1:		%{name}-0.48.2-types.patch
+Patch2:		%{name}-0.91-drop-wait-for-targets.patch
 URL:		http://www.inkscape.org/
 BuildRequires:	ImageMagick-c++-devel
 BuildRequires:	aspell-devel
@@ -90,6 +91,7 @@ dwuwymiarowej grafiki wektorowej.
 %setup -q -n %{name}-%{version}%{beta}
 %patch0 -p1
 %patch1 -p1
+%patch2 -p0
 
 %build
 %{__libtoolize}

@@ -16,7 +16,7 @@ Summary:	Scalable vector graphics editor
 Summary(pl.UTF-8):	Edytor skalowalnej grafiki wektorowej
 Name:		inkscape
 Version:	0.91
-Release:	8
+Release:	9
 License:	GPL v2+, LGPL v2.1+
 Group:		X11/Applications/Graphics
 #Source0:	http://downloads.sourceforge.net/inkscape/%{name}-%{version}%{beta}.tar.bz2

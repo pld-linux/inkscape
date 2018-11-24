@@ -10,7 +10,7 @@ Summary:	Scalable vector graphics editor
 Summary(pl.UTF-8):	Edytor skalowalnej grafiki wektorowej
 Name:		inkscape
 Version:	0.92.3
-Release:	3
+Release:	4
 License:	GPL v2+, LGPL v2.1+
 Group:		X11/Applications/Graphics
 Source0:	https://media.inkscape.org/dl/resources/file/%{name}-%{version}.tar.bz2
@@ -18,6 +18,7 @@ Source0:	https://media.inkscape.org/dl/resources/file/%{name}-%{version}.tar.bz2
 Patch0:		%{name}-man.patch
 Patch1:		%{name}-gtk3.patch
 Patch2:		%{name}-poppler.patch
+Patch3:		poppler0.69.patch
 URL:		http://www.inkscape.org/
 BuildRequires:	ImageMagick-c++-devel
 BuildRequires:	aspell-devel
@@ -108,6 +109,7 @@ dwuwymiarowej grafiki wektorowej.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 %{__sed} -i -e 's,po/Makefile.in,,' configure.ac
 

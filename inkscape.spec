@@ -18,7 +18,6 @@ Source0:	https://media.inkscape.org/dl/resources/file/%{name}-%{version}.tar.bz2
 Patch0:		%{name}-man.patch
 Patch1:		%{name}-gtk3.patch
 Patch2:		%{name}-poppler.patch
-Patch3:		poppler0.69.patch
 URL:		http://www.inkscape.org/
 BuildRequires:	ImageMagick-c++-devel
 BuildRequires:	aspell-devel
@@ -109,7 +108,6 @@ dwuwymiarowej grafiki wektorowej.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
-%patch3 -p1
 
 %{__sed} -i -e 's,po/Makefile.in,,' configure.ac
 

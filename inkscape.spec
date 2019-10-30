@@ -9,16 +9,19 @@
 Summary:	Scalable vector graphics editor
 Summary(pl.UTF-8):	Edytor skalowalnej grafiki wektorowej
 Name:		inkscape
-Version:	0.92.3
-Release:	5
+Version:	0.92.4
+Release:	1
 License:	GPL v2+, LGPL v2.1+
 Group:		X11/Applications/Graphics
 # download: follow https://inkscape.org/release/
 Source0:	https://media.inkscape.org/dl/resources/file/%{name}-%{version}.tar.bz2
-# Source0-md5:	4ef7171cc1de9e1608d8c49b77fed99e
+# Source0-md5:	ac30f6d5747fd9c620c00dad500f414f
 Patch0:		%{name}-man.patch
 Patch1:		%{name}-gtk3.patch
-Patch2:		%{name}-poppler.patch
+# https://gitlab.com/inkscape/inkscape/commit/e831b034746f8dc3c3c1b88372751f6dcb974831.patch
+Patch2:		%{name}-poppler0.76.patch
+# https://gitlab.com/inkscape/inkscape/merge_requests/986.patch
+Patch3:		%{name}-poppler0.82.patch
 URL:		https://inkscape.org/
 BuildRequires:	ImageMagick-c++-devel
 BuildRequires:	aspell-devel
@@ -109,6 +112,7 @@ dwuwymiarowej grafiki wektorowej.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 %{__sed} -i -e 's,po/Makefile.in,,' configure.ac
 
@@ -120,11 +124,13 @@ dwuwymiarowej grafiki wektorowej.
 %{__autoconf}
 %{__autoheader}
 %{__automake}
+# deprecated TimeVal API is used, so --disable-strict-build is needed
 %configure \
 	%{?with_relocation:--enable-binreloc} \
 	%{?with_dbus:--enable-dbusapi} \
 	%{?with_gtk3:--enable-gtk3-experimental} \
 	--disable-silent-rules \
+	--disable-strict-build \
 	%{!?with_gnomevfs:--without-gnome-vfs}
 
 %{__make}

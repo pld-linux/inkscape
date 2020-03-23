@@ -22,6 +22,7 @@ Patch1:		%{name}-gtk3.patch
 Patch2:		%{name}-poppler0.76.patch
 # https://gitlab.com/inkscape/inkscape/merge_requests/986.patch
 Patch3:		%{name}-poppler0.82.patch
+Patch4:		%{name}-poppler0.83.patch
 URL:		https://inkscape.org/
 BuildRequires:	ImageMagick-c++-devel
 BuildRequires:	aspell-devel
@@ -113,6 +114,7 @@ dwuwymiarowej grafiki wektorowej.
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
+%patch4 -p1
 
 %{__sed} -i -e 's,po/Makefile.in,,' configure.ac
 

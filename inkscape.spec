@@ -12,7 +12,7 @@ Release:	0.1
 License:	GPL v2+, LGPL v2.1+
 Group:		X11/Applications/Graphics
 # download: follow https://inkscape.org/release/
-Source0:	https://inkscape.org/gallery/item/18460/%{name}-%{version}.tar.xz
+Source0:	https://media.inkscape.org/dl/resources/file/%{name}-%{version}.tar.xz
 # Source0-md5:	e5f1ee6b32ac0a94bdd5d99190e7bb9e
 URL:		https://inkscape.org/
 BuildRequires:	GraphicsMagick-c++-devel

@@ -1,29 +1,21 @@
 #
 # Conditional build
 %bcond_with	dbus		# DBus interface
-%bcond_with	gtk3		# GTK+ 3 interface [experimental]
-%bcond_without	gnomevfs	# Don't use gnome vfs for loading files
 %bcond_with	relocation	# Enable binary relocation support
 #
 
 Summary:	Scalable vector graphics editor
 Summary(pl.UTF-8):	Edytor skalowalnej grafiki wektorowej
 Name:		inkscape
-Version:	0.92.4
-Release:	2
+Version:	1.0
+Release:	0.1
 License:	GPL v2+, LGPL v2.1+
 Group:		X11/Applications/Graphics
 # download: follow https://inkscape.org/release/
-Source0:	https://media.inkscape.org/dl/resources/file/%{name}-%{version}.tar.bz2
-# Source0-md5:	ac30f6d5747fd9c620c00dad500f414f
-Patch0:		%{name}-man.patch
-Patch1:		%{name}-gtk3.patch
-# https://gitlab.com/inkscape/inkscape/commit/e831b034746f8dc3c3c1b88372751f6dcb974831.patch
-Patch2:		%{name}-poppler0.76.patch
-# https://gitlab.com/inkscape/inkscape/merge_requests/986.patch
-Patch3:		%{name}-poppler0.82.patch
-Patch4:		%{name}-poppler0.83.patch
+Source0:	https://inkscape.org/gallery/item/18460/%{name}-%{version}.tar.xz
+# Source0-md5:	e5f1ee6b32ac0a94bdd5d99190e7bb9e
 URL:		https://inkscape.org/
+BuildRequires:	GraphicsMagick-c++-devel
 BuildRequires:	ImageMagick-c++-devel
 BuildRequires:	aspell-devel
 BuildRequires:	autoconf >= 2.64
@@ -37,7 +29,6 @@ BuildRequires:	gc-devel >= 7.2
 BuildRequires:	gettext-tools >= 0.17
 BuildRequires:	glib2-devel >= 1:2.28
 BuildRequires:	glibmm-devel >= 2.28
-%{?with_gnomevfs:BuildRequires:	gnome-vfs2-devel >= 2.15.2}
 BuildRequires:	gsl-devel
 BuildRequires:	intltool >= 0.40.0
 BuildRequires:	lcms2-devel >= 2
@@ -63,38 +54,25 @@ BuildRequires:	potrace-devel
 BuildRequires:	rpm-pythonprov
 BuildRequires:	sed >= 4.0
 BuildRequires:	zlib-devel
-%if %{with gtk3}
 BuildRequires:	gdl-devel >= 3.6
 BuildRequires:	gtk+3-devel >= 3.8
 BuildRequires:	gtkmm3-devel >= 3.10
 BuildRequires:	gtkspell3-devel >= 3.0
-%else
-BuildRequires:	gtk+2-devel >= 2:2.24
-BuildRequires:	gtkmm-devel >= 2.24
-BuildRequires:	gtkspell-devel >= 2.0.11
-%endif
 Requires(post,postun):	desktop-file-utils
 Requires:	cairo >= 1.10
 Requires:	cairomm >= 1.9.8
 Requires:	gc >= 7.2
 Requires:	glib2 >= 1:2.28
 Requires:	glibmm >= 2.28
-%{?with_gnomevfs:Requires:	gnome-vfs2 >= 2.15.2}
 Requires:	libsigc++ >= 2.0.17
 Requires:	libxml2 >= 1:2.6.26
 Requires:	libxslt >= 1.1.17
 Requires:	pango >= 1:1.24
 Requires:	perl-XML-XQL
 Requires:	poppler-glib >= 0.29.0
-%if %{with gtk3}
 Requires:	gdl >= 3.6
 Requires:	gtk+3 >= 3.8
 Requires:	gtkmm3 >= 3.10
-%else
-Requires:	gtk+2 >= 2:2.24
-Requires:	gtkmm >= 2.24
-Requires:	gtkspell >= 2.0.11
-%endif
 Suggests:	python-lxml
 # sr@Latn vs. sr@latin
 Conflicts:	glibc-misc < 6:2.7
@@ -109,68 +87,40 @@ Inkscape jest programem do przeglądania, tworzenia i edycji
 dwuwymiarowej grafiki wektorowej.
 
 %prep
-%setup -q
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
-%patch4 -p1
-
-%{__sed} -i -e 's,po/Makefile.in,,' configure.ac
-
+%setup -q -n %{name}-%{version}_2020-05-01_4035a4fb49
 
 %{__sed} -E -i -e '1s,#!\s*/usr/bin/env\s+python2(\s|$),#!%{__python}\1,' -e '1s,#!\s*/usr/bin/env\s+python(\s|$),#!%{__python}\1,' -e '1s,#!\s*/usr/bin/python(\s|$),#!%{__python}\1,' \
       CMakeScripts/cmake_consistency_check.py \
       buildtools/msys2checkdeps.py \
-      cxxtest/cxxtestgen.py \
       packaging/scripts/lp-mark-bugs-released \
       packaging/wix/*.py \
       share/extensions/*.py \
       share/extensions/*/*.py \
       share/*/i18n.py
 
-%{__sed} -E -i -e '1s,#!\s*/usr/bin/env\s+ruby(\s|$),#!%{__ruby}\1,' \
-      share/extensions/*.rb
-
 %{__sed} -E -i -e '1s,#!\s*/usr/bin/env\s+perl(\s|$),#!%{__perl}\1,' \
       share/attributes/genMapDataCSS.pl \
       share/attributes/genMapDataSVG.pl
 
 %build
-%{__libtoolize}
-%{__gettextize}
-%{__intltoolize}
-%{__aclocal}
-%{__autoconf}
-%{__autoheader}
-%{__automake}
-# deprecated TimeVal API is used, so --disable-strict-build is needed
-%configure \
-	%{?with_relocation:--enable-binreloc} \
-	%{?with_dbus:--enable-dbusapi} \
-	%{?with_gtk3:--enable-gtk3-experimental} \
-	--disable-silent-rules \
-	--disable-strict-build \
-	%{!?with_gnomevfs:--without-gnome-vfs}
+mkdir -p build
+cd build
+
+%cmake ../ \
+	-DBUILD_SHARED_LIBS:BOOL=OFF \
+	%{cmake_on_off relocation ENABLE_BINRELOC} \
+	%{cmake_on_off dbus WITH_DBUS}
 
 %{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%{__make} install \
+%{__make} -C build install \
 	DESTDIR=$RPM_BUILD_ROOT
-
-# localized manuals cleanup
-for manlang in de el fr ja sk zh_TW ; do
-	%{__mv} $RPM_BUILD_ROOT%{_mandir}/${manlang}/man1/{inkscape.${manlang}.1,inkscape.1}
-	%{__rm} $RPM_BUILD_ROOT%{_mandir}/man1/inkscape.${manlang}.1
-done
 
 # unify locale name, overwrite outdated bn
 %{__mv} $RPM_BUILD_ROOT%{_localedir}/{bn_BD,bn}/LC_MESSAGES/inkscape.mo
-# joke language, unsupported
-%{__rm} -r $RPM_BUILD_ROOT%{_localedir}/en_US@piglatin
 # unify names
 %{__mv} $RPM_BUILD_ROOT%{_localedir}/{ks@aran,ks}
 %{__mv} $RPM_BUILD_ROOT%{_localedir}/{ks@deva,ks@devanagari}
@@ -191,32 +141,22 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
-%doc AUTHORS ChangeLog NEWS README TRANSLATORS doc/HACKING.txt
-%lang(ca) %doc README.ca.txt
-%lang(de) %doc README.de.txt doc/HACKING.de.txt
-%lang(es) %doc README.es.txt
-%lang(fr) %doc README.fr.txt doc/HACKING.fr.txt
-%lang(it) %doc README.it.txt doc/HACKING.it.txt
-%lang(pt_BR) %doc README.pt_BR.txt doc/HACKING.pt_BR.txt
-%lang(sk) %doc README.sk.txt
-%lang(sr) %doc README.sr.txt
+%doc AUTHORS CONTRIBUTING.md NEWS.md README.md
 %attr(755,root,root) %{_bindir}/inkscape
 %attr(755,root,root) %{_bindir}/inkview
 %dir %{_datadir}/inkscape
 %{_datadir}/inkscape/[!e]*
 %{_datadir}/inkscape/examples
 %dir %{_datadir}/inkscape/extensions
-%dir %{_datadir}/inkscape/extensions/Barcode
-%attr(755,root,root) %{_datadir}/inkscape/extensions/Barcode/*.py
 %{_datadir}/inkscape/extensions/Poly3DObjects
 %{_datadir}/inkscape/extensions/alphabet_soup
-%dir %{_datadir}/inkscape/extensions/ink2canvas
-%attr(755,root,root) %{_datadir}/inkscape/extensions/ink2canvas/*.py
-%{_datadir}/inkscape/extensions/test
+%{_datadir}/inkscape/extensions/barcode
+%{_datadir}/inkscape/extensions/ink2canvas_lib
+%{_datadir}/inkscape/extensions/inkex
+%{_datadir}/inkscape/extensions/svg_fonts
+%{_datadir}/inkscape/extensions/tools
 %{_datadir}/inkscape/extensions/xaml2svg
-%attr(755,root,root) %{_datadir}/inkscape/extensions/*.pl
 %attr(755,root,root) %{_datadir}/inkscape/extensions/*.py
-%attr(755,root,root) %{_datadir}/inkscape/extensions/*.rb
 %attr(755,root,root) %{_datadir}/inkscape/extensions/*.sh
 %{_datadir}/inkscape/extensions/*.inx
 %{_datadir}/inkscape/extensions/*.js
@@ -225,15 +165,20 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/inkscape/extensions/*.xsl
 %{_datadir}/inkscape/extensions/*.xslt
 %{_datadir}/inkscape/extensions/fontfix.conf
+%{_datadir}/inkscape/extensions/setup.cfg
 %{_datadir}/inkscape/extensions/inkscape.extension.rng
-%{_datadir}/appdata/inkscape.appdata.xml
-%{_iconsdir}/hicolor/*/apps/inkscape.png
-%{_desktopdir}/inkscape.desktop
+%{_datadir}/metainfo/org.inkscape.Inkscape.appdata.xml
+%{_iconsdir}/hicolor/*/apps/org.inkscape.Inkscape.png
+%{_desktopdir}/org.inkscape.Inkscape.desktop
 %{_mandir}/man1/inkscape.1*
 %{_mandir}/man1/inkview.1*
 %lang(de) %{_mandir}/de/man1/inkscape.1*
-%lang(el) %{_mandir}/el/man1/inkscape.1*
 %lang(fr) %{_mandir}/fr/man1/inkscape.1*
-%lang(ja) %{_mandir}/ja/man1/inkscape.1*
-%lang(sk) %{_mandir}/sk/man1/inkscape.1*
-%lang(zh_TW) %{_mandir}/zh_TW/man1/inkscape.1*
+%lang(hr) %{_mandir}/hr/man1/inkscape.1*
+%lang(hu) %{_mandir}/hu/man1/inkscape.1*
+%lang(de) %{_mandir}/de/man1/inkview.1*
+%lang(es) %{_mandir}/es/man1/inkview.1*
+%lang(fr) %{_mandir}/fr/man1/inkview.1*
+%lang(hr) %{_mandir}/hr/man1/inkview.1*
+%lang(hu) %{_mandir}/hu/man1/inkview.1*
+%lang(pt_BR) %{_mandir}/pt_BR/man1/inkview.1*

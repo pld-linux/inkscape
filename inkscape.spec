@@ -2,35 +2,44 @@
 # Conditional build
 %bcond_with	dbus		# DBus interface
 %bcond_with	relocation	# Enable binary relocation support
+%bcond_with	imagick		# ImageMagick 6.x instead of GraphicsMagick
 #
 
 Summary:	Scalable vector graphics editor
 Summary(pl.UTF-8):	Edytor skalowalnej grafiki wektorowej
 Name:		inkscape
 Version:	1.0
-Release:	1
+Release:	2
 License:	GPL v2+, LGPL v2.1+
 Group:		X11/Applications/Graphics
 # download: follow https://inkscape.org/release/
 Source0:	https://media.inkscape.org/dl/resources/file/%{name}-%{version}.tar.xz
 # Source0-md5:	e5f1ee6b32ac0a94bdd5d99190e7bb9e
 URL:		https://inkscape.org/
-BuildRequires:	GraphicsMagick-c++-devel
-BuildRequires:	ImageMagick-c++-devel
+%{!?with_imagick:BuildRequires:	GraphicsMagick-c++-devel}
+%{?with_imagick:BuildRequires:	ImageMagick6-c++-devel < 7}
 BuildRequires:	aspell-devel
-BuildRequires:	autoconf >= 2.64
-BuildRequires:	automake >= 1:1.9.4-2
 BuildRequires:	boost-devel >= 1.36
 BuildRequires:	cairo-devel >= 1.10
 BuildRequires:	cairomm-devel >= 1.9.8
-%{?with_dbus:BuildRequires:	dbus-glib-devel}
+BuildRequires:	cmake >= 3.1.0
+%if %{with dbus}
+BuildRequires:	dbus-devel
+BuildRequires:	dbus-glib-devel
+%endif
+BuildRequires:	double-conversion-devel
+BuildRequires:	fontconfig-devel
 BuildRequires:	freetype-devel >= 2.0
 BuildRequires:	gc-devel >= 7.2
+BuildRequires:	gdl-devel >= 3.6
 BuildRequires:	gettext-tools >= 0.17
 BuildRequires:	glib2-devel >= 1:2.28
 BuildRequires:	glibmm-devel >= 2.28
 BuildRequires:	gsl-devel
-BuildRequires:	intltool >= 0.40.0
+BuildRequires:	gtk+3-devel >= 3.22
+BuildRequires:	gtkmm3-devel >= 3.22
+BuildRequires:	gtkspell3-devel >= 3.0
+BuildRequires:	harfbuzz-devel
 BuildRequires:	lcms2-devel >= 2
 BuildRequires:	libcdr-devel >= 0.1
 BuildRequires:	libexif-devel
@@ -38,9 +47,9 @@ BuildRequires:	libgomp-devel
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel >= 1.2
 BuildRequires:	librevenge-devel
+BuildRequires:	libsoup-devel >= 2.42
 BuildRequires:	libsigc++-devel >= 2.0.17
 BuildRequires:	libstdc++-devel >= 6:4.7
-BuildRequires:	libtool >= 2:2.2
 BuildRequires:	libvisio-devel >= 0.1
 BuildRequires:	libwpd-devel >= 0.9
 BuildRequires:	libwpg-devel >= 0.3
@@ -53,29 +62,24 @@ BuildRequires:	popt-devel
 BuildRequires:	potrace-devel
 BuildRequires:	rpm-pythonprov
 BuildRequires:	sed >= 4.0
+BuildRequires:	xorg-lib-libX11-devel
 BuildRequires:	zlib-devel
-BuildRequires:	gdl-devel >= 3.6
-BuildRequires:	gtk+3-devel >= 3.8
-BuildRequires:	gtkmm3-devel >= 3.10
-BuildRequires:	gtkspell3-devel >= 3.0
 Requires(post,postun):	desktop-file-utils
 Requires:	cairo >= 1.10
 Requires:	cairomm >= 1.9.8
 Requires:	gc >= 7.2
+Requires:	gdl >= 3.6
 Requires:	glib2 >= 1:2.28
 Requires:	glibmm >= 2.28
+Requires:	gtk+3 >= 3.22
+Requires:	gtkmm3 >= 3.22
 Requires:	libsigc++ >= 2.0.17
 Requires:	libxml2 >= 1:2.6.26
 Requires:	libxslt >= 1.1.17
 Requires:	pango >= 1:1.24
 Requires:	perl-XML-XQL
 Requires:	poppler-glib >= 0.29.0
-Requires:	gdl >= 3.6
-Requires:	gtk+3 >= 3.8
-Requires:	gtkmm3 >= 3.10
 Suggests:	python-lxml
-# sr@Latn vs. sr@latin
-Conflicts:	glibc-misc < 6:2.7
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -106,10 +110,11 @@ dwuwymiarowej grafiki wektorowej.
 mkdir -p build
 cd build
 
-%cmake ../ \
+%cmake .. \
 	-DBUILD_SHARED_LIBS:BOOL=OFF \
 	%{cmake_on_off relocation ENABLE_BINRELOC} \
-	%{cmake_on_off dbus WITH_DBUS}
+	%{cmake_on_off dbus WITH_DBUS} \
+	%{cmake_on_off imagick WITH_IMAGE_MAGICK}
 
 %{__make}
 

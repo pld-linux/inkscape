@@ -8,13 +8,13 @@
 Summary:	Scalable vector graphics editor
 Summary(pl.UTF-8):	Edytor skalowalnej grafiki wektorowej
 Name:		inkscape
-Version:	1.0
-Release:	2
+Version:	1.0.1
+Release:	1
 License:	GPL v2+, LGPL v2.1+
 Group:		X11/Applications/Graphics
 # download: follow https://inkscape.org/release/
 Source0:	https://media.inkscape.org/dl/resources/file/%{name}-%{version}.tar.xz
-# Source0-md5:	e5f1ee6b32ac0a94bdd5d99190e7bb9e
+# Source0-md5:	daefc5212b72e49eff41a7681fd5e993
 URL:		https://inkscape.org/
 %{!?with_imagick:BuildRequires:	GraphicsMagick-c++-devel}
 %{?with_imagick:BuildRequires:	ImageMagick6-c++-devel < 7}
@@ -61,6 +61,7 @@ BuildRequires:	poppler-glib-devel >= 0.29.0
 BuildRequires:	popt-devel
 BuildRequires:	potrace-devel
 BuildRequires:	rpm-pythonprov
+BuildRequires:	rpmbuild(macros) >= 1.752
 BuildRequires:	sed >= 4.0
 BuildRequires:	xorg-lib-libX11-devel
 BuildRequires:	zlib-devel
@@ -90,8 +91,22 @@ vector drawings.
 Inkscape jest programem do przeglądania, tworzenia i edycji
 dwuwymiarowej grafiki wektorowej.
 
+%package -n bash-completion-inkscape
+Summary:	Bash completion for inkscape arguments
+Summary(pl.UTF-8):	Bashowe dopełnianie argumentów programu inkscape
+Group:		Applications/Shells
+Requires:	%{name} = %{version}-%{release}
+Requires:	bash-completion >= 2.0
+%{?noarchpackage}
+
+%description -n bash-completion-inkscape
+Bash completion for inkscape arguments.
+
+%description -n bash-completion-inkscape -l pl.UTF-8
+Bashowe dopełnianie argumentów programu inkscape.
+
 %prep
-%setup -q -n %{name}-%{version}_2020-05-01_4035a4fb49
+%setup -q -n %{name}-%{version}_2020-09-07_3bc2e813f5
 
 %{__sed} -E -i -e '1s,#!\s*/usr/bin/env\s+python2(\s|$),#!%{__python}\1,' -e '1s,#!\s*/usr/bin/env\s+python(\s|$),#!%{__python}\1,' -e '1s,#!\s*/usr/bin/python(\s|$),#!%{__python}\1,' \
       CMakeScripts/cmake_consistency_check.py \
@@ -133,6 +148,8 @@ rm -rf $RPM_BUILD_ROOT
 # unsupported variants
 %{__rm} -r $RPM_BUILD_ROOT%{_localedir}/{kok@latin,mni@beng,sat@deva}
 
+%{__rm} $RPM_BUILD_ROOT%{_datadir}/inkscape/extensions/{.pylintrc,LICENSE.txt,MANIFEST.in,README.md,STYLEGUIDE.md,doxygen-main.dox,setup.cfg,setup.py,tox.ini}
+
 %find_lang %{name}
 
 %clean
@@ -163,6 +180,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/inkscape/extensions/xaml2svg
 %attr(755,root,root) %{_datadir}/inkscape/extensions/*.py
 %attr(755,root,root) %{_datadir}/inkscape/extensions/*.sh
+%{_datadir}/inkscape/extensions/dxf14_*.txt
 %{_datadir}/inkscape/extensions/*.inx
 %{_datadir}/inkscape/extensions/*.js
 %{_datadir}/inkscape/extensions/*.svg
@@ -170,7 +188,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/inkscape/extensions/*.xsl
 %{_datadir}/inkscape/extensions/*.xslt
 %{_datadir}/inkscape/extensions/fontfix.conf
-%{_datadir}/inkscape/extensions/setup.cfg
 %{_datadir}/inkscape/extensions/inkscape.extension.rng
 %{_datadir}/metainfo/org.inkscape.Inkscape.appdata.xml
 %{_iconsdir}/hicolor/*/apps/org.inkscape.Inkscape.png
@@ -187,3 +204,7 @@ rm -rf $RPM_BUILD_ROOT
 %lang(hr) %{_mandir}/hr/man1/inkview.1*
 %lang(hu) %{_mandir}/hu/man1/inkview.1*
 %lang(pt_BR) %{_mandir}/pt_BR/man1/inkview.1*
+
+%files -n bash-completion-inkscape
+%defattr(644,root,root,755)
+%{bash_compdir}/inkscape

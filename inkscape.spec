@@ -97,7 +97,7 @@ Summary(pl.UTF-8):	Bashowe dopełnianie argumentów programu inkscape
 Group:		Applications/Shells
 Requires:	%{name} = %{version}-%{release}
 Requires:	bash-completion >= 2.0
-%{?noarchpackage}
+BuildArch:	noarch
 
 %description -n bash-completion-inkscape
 Bash completion for inkscape arguments.

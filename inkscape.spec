@@ -8,13 +8,16 @@
 Summary:	Scalable vector graphics editor
 Summary(pl.UTF-8):	Edytor skalowalnej grafiki wektorowej
 Name:		inkscape
-Version:	1.0.1
-Release:	3
+Version:	1.0.2
+Release:	1
 License:	GPL v2+, LGPL v2.1+
 Group:		X11/Applications/Graphics
 # download: follow https://inkscape.org/release/
 Source0:	https://media.inkscape.org/dl/resources/file/%{name}-%{version}.tar.xz
-# Source0-md5:	daefc5212b72e49eff41a7681fd5e993
+# Source0-md5:	ec90e0c1e4c7e3dba8f46b16c73462b3
+Patch0:		gcc11.patch
+Patch1:		glib-extern.patch
+Patch2:		missing-atomic.patch
 URL:		https://inkscape.org/
 %{!?with_imagick:BuildRequires:	GraphicsMagick-c++-devel}
 %{?with_imagick:BuildRequires:	ImageMagick6-c++-devel < 7}
@@ -106,7 +109,10 @@ Bash completion for inkscape arguments.
 Bashowe dopełnianie argumentów programu inkscape.
 
 %prep
-%setup -q -n %{name}-%{version}_2020-09-07_3bc2e813f5
+%setup -q -n %{name}-%{version}_2021-01-15_e86c870879
+%patch0 -p1
+%patch1 -p1
+%patch2 -p1
 
 %{__sed} -E -i -e '1s,#!\s*/usr/bin/env\s+python2(\s|$),#!%{__python}\1,' -e '1s,#!\s*/usr/bin/env\s+python(\s|$),#!%{__python}\1,' -e '1s,#!\s*/usr/bin/python(\s|$),#!%{__python}\1,' \
       CMakeScripts/cmake_consistency_check.py \

@@ -8,16 +8,13 @@
 Summary:	Scalable vector graphics editor
 Summary(pl.UTF-8):	Edytor skalowalnej grafiki wektorowej
 Name:		inkscape
-Version:	1.0.2
+Version:	1.1
 Release:	1
 License:	GPL v2+, LGPL v2.1+
 Group:		X11/Applications/Graphics
 # download: follow https://inkscape.org/release/
 Source0:	https://media.inkscape.org/dl/resources/file/%{name}-%{version}.tar.xz
-# Source0-md5:	ec90e0c1e4c7e3dba8f46b16c73462b3
-Patch0:		gcc11.patch
-Patch1:		glib-extern.patch
-Patch2:		missing-atomic.patch
+# Source0-md5:	45e38e25fb93c7c91c51b84b9e4cf0ee
 URL:		https://inkscape.org/
 %{!?with_imagick:BuildRequires:	GraphicsMagick-c++-devel}
 %{?with_imagick:BuildRequires:	ImageMagick6-c++-devel < 7}
@@ -50,8 +47,8 @@ BuildRequires:	libgomp-devel
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel >= 1.2
 BuildRequires:	librevenge-devel
-BuildRequires:	libsoup-devel >= 2.42
 BuildRequires:	libsigc++-devel >= 2.0.17
+BuildRequires:	libsoup-devel >= 2.42
 BuildRequires:	libstdc++-devel >= 6:4.7
 BuildRequires:	libvisio-devel >= 0.1
 BuildRequires:	libwpd-devel >= 0.9
@@ -109,16 +106,12 @@ Bash completion for inkscape arguments.
 Bashowe dopełnianie argumentów programu inkscape.
 
 %prep
-%setup -q -n %{name}-%{version}_2021-01-15_e86c870879
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
+%setup -q -n %{name}-%{version}_2021-05-24_c4e8f9ed74
 
 %{__sed} -E -i -e '1s,#!\s*/usr/bin/env\s+python2(\s|$),#!%{__python}\1,' -e '1s,#!\s*/usr/bin/env\s+python(\s|$),#!%{__python}\1,' -e '1s,#!\s*/usr/bin/python(\s|$),#!%{__python}\1,' \
       CMakeScripts/cmake_consistency_check.py \
       buildtools/msys2checkdeps.py \
       packaging/scripts/lp-mark-bugs-released \
-      packaging/wix/*.py \
       share/extensions/*.py \
       share/extensions/*/*.py \
       share/*/i18n.py
@@ -197,6 +190,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/inkscape/extensions/inkscape.extension.rng
 %{_datadir}/metainfo/org.inkscape.Inkscape.appdata.xml
 %{_iconsdir}/hicolor/*/apps/org.inkscape.Inkscape.png
+%{_iconsdir}/hicolor/scalable/apps/org.inkscape.Inkscape.svg
+%{_iconsdir}/hicolor/symbolic/apps/org.inkscape.Inkscape-symbolic.svg
 %{_desktopdir}/org.inkscape.Inkscape.desktop
 %{_mandir}/man1/inkscape.1*
 %{_mandir}/man1/inkview.1*
@@ -204,12 +199,14 @@ rm -rf $RPM_BUILD_ROOT
 %lang(fr) %{_mandir}/fr/man1/inkscape.1*
 %lang(hr) %{_mandir}/hr/man1/inkscape.1*
 %lang(hu) %{_mandir}/hu/man1/inkscape.1*
+%lang(zh_TW) %{_mandir}/zh_TW/man1/inkscape.1*
 %lang(de) %{_mandir}/de/man1/inkview.1*
 %lang(es) %{_mandir}/es/man1/inkview.1*
 %lang(fr) %{_mandir}/fr/man1/inkview.1*
 %lang(hr) %{_mandir}/hr/man1/inkview.1*
 %lang(hu) %{_mandir}/hu/man1/inkview.1*
 %lang(pt_BR) %{_mandir}/pt_BR/man1/inkview.1*
+%lang(zh_TW) %{_mandir}/zh_TW/man1/inkview.1*
 
 %files -n bash-completion-inkscape
 %defattr(644,root,root,755)

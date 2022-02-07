@@ -8,13 +8,13 @@
 Summary:	Scalable vector graphics editor
 Summary(pl.UTF-8):	Edytor skalowalnej grafiki wektorowej
 Name:		inkscape
-Version:	1.1
-Release:	5
+Version:	1.1.2
+Release:	1
 License:	GPL v2+, LGPL v2.1+
 Group:		X11/Applications/Graphics
 # download: follow https://inkscape.org/release/
 Source0:	https://media.inkscape.org/dl/resources/file/%{name}-%{version}.tar.xz
-# Source0-md5:	45e38e25fb93c7c91c51b84b9e4cf0ee
+# Source0-md5:	a486807ffdf89a1d7ce9425dd60555ec
 URL:		https://inkscape.org/
 %{!?with_imagick:BuildRequires:	GraphicsMagick-c++-devel}
 %{?with_imagick:BuildRequires:	ImageMagick6-c++-devel < 7}
@@ -106,7 +106,7 @@ Bash completion for inkscape arguments.
 Bashowe dopełnianie argumentów programu inkscape.
 
 %prep
-%setup -q -n %{name}-%{version}_2021-05-24_c4e8f9ed74
+%setup -q -n %{name}-%{version}_2022-02-04_0a00cf5339
 
 %{__sed} -E -i -e '1s,#!\s*/usr/bin/env\s+python2(\s|$),#!%{__python}\1,' -e '1s,#!\s*/usr/bin/env\s+python(\s|$),#!%{__python}\1,' -e '1s,#!\s*/usr/bin/python(\s|$),#!%{__python}\1,' \
       CMakeScripts/cmake_consistency_check.py \
@@ -138,6 +138,9 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} -C build install \
 	DESTDIR=$RPM_BUILD_ROOT
 
+# TODO: use external 2geom package
+%{__rm} -r $RPM_BUILD_ROOT{%{_includedir}/2geom-1.1.0,%{_libdir}/cmake/2Geom,%{_libdir}/lib2geom.a,%{_pkgconfigdir}/2geom.pc}
+
 # unify locale name, overwrite outdated bn
 %{__mv} $RPM_BUILD_ROOT%{_localedir}/{bn_BD,bn}/LC_MESSAGES/inkscape.mo
 # unify names
@@ -147,7 +150,7 @@ rm -rf $RPM_BUILD_ROOT
 # unsupported variants
 %{__rm} -r $RPM_BUILD_ROOT%{_localedir}/{kok@latin,mni@beng,sat@deva}
 
-%{__rm} $RPM_BUILD_ROOT%{_datadir}/inkscape/extensions/{.pylintrc,LICENSE.txt,MANIFEST.in,README.md,STYLEGUIDE.md,doxygen-main.dox,setup.cfg,setup.py,tox.ini}
+%{__rm} $RPM_BUILD_ROOT%{_datadir}/inkscape/extensions/{.pylintrc,LICENSE.txt,MANIFEST.in,README.md,TESTING.md,doxygen-main.dox,setup.cfg,setup.py,tox.ini}
 
 %find_lang %{name}
 

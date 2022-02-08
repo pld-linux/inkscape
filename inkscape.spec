@@ -36,11 +36,12 @@ BuildRequires:	gettext-tools >= 0.17
 BuildRequires:	glib2-devel >= 1:2.28
 BuildRequires:	glibmm-devel >= 2.28
 BuildRequires:	gsl-devel
+BuildRequires:	gspell-devel >= 1.0
 BuildRequires:	gtk+3-devel >= 3.22
 BuildRequires:	gtkmm3-devel >= 3.22
-BuildRequires:	gtkspell3-devel >= 3.0
 BuildRequires:	harfbuzz-devel
 BuildRequires:	lcms2-devel >= 2
+BuildRequires:	lib2geom-devel >= 1.1
 BuildRequires:	libcdr-devel >= 0.1
 BuildRequires:	libexif-devel
 BuildRequires:	libgomp-devel
@@ -137,9 +138,6 @@ rm -rf $RPM_BUILD_ROOT
 
 %{__make} -C build install \
 	DESTDIR=$RPM_BUILD_ROOT
-
-# TODO: use external 2geom package
-%{__rm} -r $RPM_BUILD_ROOT{%{_includedir}/2geom-1.1.0,%{_libdir}/cmake/2Geom,%{_libdir}/lib2geom.a,%{_pkgconfigdir}/2geom.pc}
 
 # unify locale name, overwrite outdated bn
 %{__mv} $RPM_BUILD_ROOT%{_localedir}/{bn_BD,bn}/LC_MESSAGES/inkscape.mo

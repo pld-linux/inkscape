@@ -111,17 +111,28 @@ Bashowe dopełnianie argumentów programu inkscape.
 %setup -q -n %{name}-%{version}_2022-02-04_0a00cf5339
 %patch0 -p1
 
-%{__sed} -E -i -e '1s,#!\s*/usr/bin/env\s+python2(\s|$),#!%{__python}\1,' -e '1s,#!\s*/usr/bin/env\s+python(\s|$),#!%{__python}\1,' -e '1s,#!\s*/usr/bin/python(\s|$),#!%{__python}\1,' \
-      CMakeScripts/cmake_consistency_check.py \
-      buildtools/msys2checkdeps.py \
-      packaging/scripts/lp-mark-bugs-released \
-      share/extensions/*.py \
-      share/extensions/*/*.py \
-      share/*/i18n.py
+# python3-only
+%{__sed} -i -e '1s,/usr/bin/env python3,%{__python3},' \
+	CMakeScripts/cmake_consistency_check.py \
+	buildtools/check_license_headers.py \
+	share/extensions/*.py \
+	share/extensions/tests/add_pylint.py \
+	share/*/i18n.py
 
-%{__sed} -E -i -e '1s,#!\s*/usr/bin/env\s+perl(\s|$),#!%{__perl}\1,' \
-      share/attributes/genMapDataCSS.pl \
-      share/attributes/genMapDataSVG.pl
+# look python2/3 compatible
+%{__sed} -i -e '1s,/usr/bin/env python$,%{__python3},' \
+	buildtools/msys2checkdeps.py \
+	share/extensions/*.py \
+	share/extensions/inkex/tester/inx.py \
+	share/extensions/tests/test_*.py \
+
+# python2-only
+%{__sed} -i -e '1s,/usr/bin/python$,%{__python},' \
+	packaging/scripts/lp-mark-bugs-released
+
+%{__sed} -i -e '1s,/usr/bin/env perl$,%{__perl},' \
+	share/attributes/genMapDataCSS.pl \
+	share/attributes/genMapDataSVG.pl
 
 %build
 mkdir -p build

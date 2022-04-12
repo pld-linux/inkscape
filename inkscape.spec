@@ -9,12 +9,13 @@ Summary:	Scalable vector graphics editor
 Summary(pl.UTF-8):	Edytor skalowalnej grafiki wektorowej
 Name:		inkscape
 Version:	1.1.2
-Release:	1
+Release:	2
 License:	GPL v2+, LGPL v2.1+
 Group:		X11/Applications/Graphics
 # download: follow https://inkscape.org/release/
 Source0:	https://media.inkscape.org/dl/resources/file/%{name}-%{version}.tar.xz
 # Source0-md5:	a486807ffdf89a1d7ce9425dd60555ec
+Patch0:		%{name}-poppler.patch
 URL:		https://inkscape.org/
 %{!?with_imagick:BuildRequires:	GraphicsMagick-c++-devel}
 %{?with_imagick:BuildRequires:	ImageMagick6-c++-devel < 7}
@@ -108,6 +109,7 @@ Bashowe dopełnianie argumentów programu inkscape.
 
 %prep
 %setup -q -n %{name}-%{version}_2022-02-04_0a00cf5339
+%patch0 -p1
 
 %{__sed} -E -i -e '1s,#!\s*/usr/bin/env\s+python2(\s|$),#!%{__python}\1,' -e '1s,#!\s*/usr/bin/env\s+python(\s|$),#!%{__python}\1,' -e '1s,#!\s*/usr/bin/python(\s|$),#!%{__python}\1,' \
       CMakeScripts/cmake_consistency_check.py \

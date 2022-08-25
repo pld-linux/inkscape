@@ -159,7 +159,8 @@ rm -rf $RPM_BUILD_ROOT
 # unsupported variants
 %{__rm} -r $RPM_BUILD_ROOT%{_localedir}/{kok@latin,mni@beng,sat@deva}
 
-%{__rm} $RPM_BUILD_ROOT%{_datadir}/inkscape/extensions/{.pylintrc,LICENSE.txt,MANIFEST.in,README.md,TESTING.md,doxygen-main.dox,tox.ini}
+%{__rm} $RPM_BUILD_ROOT%{_datadir}/inkscape/extensions/{.darglint,.pre-commit-config.yaml,.pylintrc,CONTRIBUTING.md,LICENSE.txt,MANIFEST.in,README.md,TESTING.md,doxygen-main.dox,poetry.lock,pyproject.toml,tox.ini}
+%{__rm} -r $RPM_BUILD_ROOT%{_datadir}/inkscape/extensions/docs
 
 %find_lang %{name}
 

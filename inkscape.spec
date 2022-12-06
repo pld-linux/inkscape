@@ -8,13 +8,13 @@
 Summary:	Scalable vector graphics editor
 Summary(pl.UTF-8):	Edytor skalowalnej grafiki wektorowej
 Name:		inkscape
-Version:	1.2
+Version:	1.2.2
 Release:	1
 License:	GPL v2+, LGPL v2.1+
 Group:		X11/Applications/Graphics
 # download: follow https://inkscape.org/release/
 Source0:	https://media.inkscape.org/dl/resources/file/%{name}-%{version}.tar.xz
-# Source0-md5:	fb40ac4635b9ea5608e1706584cd0665
+# Source0-md5:	490c40bbb3ce3441ceee88e61775bbf4
 URL:		https://inkscape.org/
 %{!?with_imagick:BuildRequires:	GraphicsMagick-c++-devel}
 %{?with_imagick:BuildRequires:	ImageMagick6-c++-devel < 7}
@@ -107,7 +107,7 @@ Bash completion for inkscape arguments.
 Bashowe dopełnianie argumentów programu inkscape.
 
 %prep
-%setup -q -n %{name}-%{version}_2022-05-15_dc2aedaf03
+%setup -q -n %{name}-%{version}_2022-12-01_b0a8486541
 
 # python3-only
 %{__sed} -i -e '1s,/usr/bin/env python3,%{__python3},' \
@@ -215,12 +215,14 @@ rm -rf $RPM_BUILD_ROOT
 %lang(fr) %{_mandir}/fr/man1/inkscape.1*
 %lang(hr) %{_mandir}/hr/man1/inkscape.1*
 %lang(hu) %{_mandir}/hu/man1/inkscape.1*
+%lang(zh_TW) %{_mandir}/zh_TW/man1/inkscape.1*
 %lang(de) %{_mandir}/de/man1/inkview.1*
 %lang(es) %{_mandir}/es/man1/inkview.1*
 %lang(fr) %{_mandir}/fr/man1/inkview.1*
 %lang(hr) %{_mandir}/hr/man1/inkview.1*
 %lang(hu) %{_mandir}/hu/man1/inkview.1*
 %lang(pt_BR) %{_mandir}/pt_BR/man1/inkview.1*
+%lang(zh_TW) %{_mandir}/zh_TW/man1/inkview.1*
 
 %files -n bash-completion-inkscape
 %defattr(644,root,root,755)

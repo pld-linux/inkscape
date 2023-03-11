@@ -57,6 +57,7 @@ BuildRequires:	libwpg-devel >= 0.3
 BuildRequires:	libxml2-devel >= 1:2.6.26
 BuildRequires:	libxslt-devel >= 1.1.17
 BuildRequires:	pango-devel >= 1:1.24
+BuildRequires:	perl-tools-pod
 BuildRequires:	pkgconfig
 BuildRequires:	poppler-glib-devel >= 0.29.0
 BuildRequires:	popt-devel

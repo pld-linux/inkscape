@@ -62,6 +62,7 @@ BuildRequires:	pkgconfig
 BuildRequires:	poppler-glib-devel >= 0.29.0
 BuildRequires:	popt-devel
 BuildRequires:	potrace-devel
+BuildRequires:	rpm-build >= 4.6
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.752
 BuildRequires:	sed >= 4.0

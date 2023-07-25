@@ -8,13 +8,13 @@
 Summary:	Scalable vector graphics editor
 Summary(pl.UTF-8):	Edytor skalowalnej grafiki wektorowej
 Name:		inkscape
-Version:	1.2.2
-Release:	4
+Version:	1.3
+Release:	1
 License:	GPL v2+, LGPL v2.1+
 Group:		X11/Applications/Graphics
 # download: follow https://inkscape.org/release/
 Source0:	https://media.inkscape.org/dl/resources/file/%{name}-%{version}.tar.xz
-# Source0-md5:	490c40bbb3ce3441ceee88e61775bbf4
+# Source0-md5:	3b16db43ffdae2156c4f318a44c32bbd
 URL:		https://inkscape.org/
 %{!?with_imagick:BuildRequires:	GraphicsMagick-c++-devel}
 %{?with_imagick:BuildRequires:	ImageMagick6-c++-devel < 7}
@@ -39,6 +39,7 @@ BuildRequires:	gsl-devel
 BuildRequires:	gspell-devel >= 1.0
 BuildRequires:	gtk+3-devel >= 3.22
 BuildRequires:	gtkmm3-devel >= 3.22
+BuildRequires:	gtksourceview4-devel
 BuildRequires:	harfbuzz-devel
 BuildRequires:	lcms2-devel >= 2
 BuildRequires:	lib2geom-devel >= 1.1
@@ -62,6 +63,7 @@ BuildRequires:	pkgconfig
 BuildRequires:	poppler-glib-devel >= 0.29.0
 BuildRequires:	popt-devel
 BuildRequires:	potrace-devel
+BuildRequires:	ragel
 BuildRequires:	rpm-build >= 4.6
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.752
@@ -111,7 +113,7 @@ Bash completion for inkscape arguments.
 Bashowe dopełnianie argumentów programu inkscape.
 
 %prep
-%setup -q -n %{name}-%{version}_2022-12-01_b0a8486541
+%setup -q -n %{name}-%{version}_2023-07-21_0e150ed6c4
 
 # python3-only
 %{__sed} -i -e '1s,/usr/bin/env python3,%{__python3},' \
@@ -163,9 +165,14 @@ rm -rf $RPM_BUILD_ROOT
 # unsupported variants
 %{__rm} -r $RPM_BUILD_ROOT%{_localedir}/{kok@latin,mni@beng,sat@deva}
 
-%{__rm} $RPM_BUILD_ROOT%{_datadir}/inkscape/extensions/{.darglint,.pre-commit-config.yaml,.pylintrc,CONTRIBUTING.md,LICENSE.txt,MANIFEST.in,README.md,TESTING.md,doxygen-main.dox,poetry.lock,pyproject.toml,tox.ini}
+%{__rm} $RPM_BUILD_ROOT%{_datadir}/inkscape/extensions/{.darglint,.pre-commit-config.yaml,.pylintrc,CONTRIBUTING.md,LICENSE.txt,MANIFEST.in,README.md,TESTING.md,doxygen-main.dox,package-readme.md,poetry.lock,pyproject.toml,tox.ini}
 %{__rm} -r $RPM_BUILD_ROOT%{_datadir}/inkscape/extensions/docs
 
+# removing 2geom
+%{__rm} -r $RPM_BUILD_ROOT%{_includedir}/2geom-1.3.0
+%{__rm} -r $RPM_BUILD_ROOT%{_libdir}/cmake/2Geom
+%{__rm} -r $RPM_BUILD_ROOT%{_libdir}/lib2geom.a
+%{__rm} -r $RPM_BUILD_ROOT%{_pkgconfigdir}/2geom.pc
 %find_lang %{name}
 
 %clean
@@ -186,6 +193,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/inkscape/[!e]*
 %{_datadir}/inkscape/examples
 %dir %{_datadir}/inkscape/extensions
+%dir %{_datadir}/inkscape/extensions/icons
 %{_datadir}/inkscape/extensions/Poly3DObjects
 %{_datadir}/inkscape/extensions/alphabet_soup
 %{_datadir}/inkscape/extensions/barcode
@@ -195,9 +203,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/inkscape/extensions/other
 %{_datadir}/inkscape/extensions/svg_fonts
 %{_datadir}/inkscape/extensions/tools
-%{_datadir}/inkscape/extensions/xaml2svg
 %attr(755,root,root) %{_datadir}/inkscape/extensions/*.py
-%attr(755,root,root) %{_datadir}/inkscape/extensions/*.sh
 %{_datadir}/inkscape/extensions/dxf14_*.txt
 %{_datadir}/inkscape/extensions/*.inx
 %{_datadir}/inkscape/extensions/*.js
@@ -206,8 +212,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/inkscape/extensions/*.xsl
 %{_datadir}/inkscape/extensions/*.xslt
 %{_datadir}/inkscape/extensions/fontfix.conf
-%{_datadir}/inkscape/extensions/inkscape.extension.rng
-%{_datadir}/inkscape/extensions/inkscape.extension.schema
+%{_datadir}/inkscape/extensions/icons/*.svg
 %{_datadir}/metainfo/org.inkscape.Inkscape.appdata.xml
 %{_iconsdir}/hicolor/*/apps/org.inkscape.Inkscape.png
 %{_iconsdir}/hicolor/scalable/apps/org.inkscape.Inkscape.svg
@@ -217,14 +222,15 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/inkview.1*
 %lang(de) %{_mandir}/de/man1/inkscape.1*
 %lang(fr) %{_mandir}/fr/man1/inkscape.1*
-%lang(hr) %{_mandir}/hr/man1/inkscape.1*
 %lang(hu) %{_mandir}/hu/man1/inkscape.1*
+%lang(ko) %{_mandir}/ko/man1/inkscape.1*
 %lang(zh_TW) %{_mandir}/zh_TW/man1/inkscape.1*
 %lang(de) %{_mandir}/de/man1/inkview.1*
 %lang(es) %{_mandir}/es/man1/inkview.1*
 %lang(fr) %{_mandir}/fr/man1/inkview.1*
 %lang(hr) %{_mandir}/hr/man1/inkview.1*
 %lang(hu) %{_mandir}/hu/man1/inkview.1*
+%lang(ko) %{_mandir}/ko/man1/inkview.1*
 %lang(pt_BR) %{_mandir}/pt_BR/man1/inkview.1*
 %lang(zh_TW) %{_mandir}/zh_TW/man1/inkview.1*
 

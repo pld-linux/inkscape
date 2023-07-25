@@ -42,7 +42,7 @@ BuildRequires:	gtkmm3-devel >= 3.22
 BuildRequires:	gtksourceview4-devel
 BuildRequires:	harfbuzz-devel
 BuildRequires:	lcms2-devel >= 2
-BuildRequires:	lib2geom-devel >= 1.3.0
+BuildRequires:	lib2geom-devel >= 1.3
 BuildRequires:	libcdr-devel >= 0.1
 BuildRequires:	libexif-devel
 BuildRequires:	libgomp-devel

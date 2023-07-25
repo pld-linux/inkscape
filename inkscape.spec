@@ -170,11 +170,6 @@ rm -rf $RPM_BUILD_ROOT
 %{__rm} $RPM_BUILD_ROOT%{_datadir}/inkscape/extensions/{.darglint,.pre-commit-config.yaml,.pylintrc,CONTRIBUTING.md,LICENSE.txt,MANIFEST.in,README.md,TESTING.md,doxygen-main.dox,package-readme.md,poetry.lock,pyproject.toml,tox.ini}
 %{__rm} -r $RPM_BUILD_ROOT%{_datadir}/inkscape/extensions/docs
 
-# removing 2geom
-%{__rm} -r $RPM_BUILD_ROOT%{_includedir}/2geom-1.3.0
-%{__rm} -r $RPM_BUILD_ROOT%{_libdir}/cmake/2Geom
-%{__rm} -r $RPM_BUILD_ROOT%{_libdir}/lib2geom.a
-%{__rm} -r $RPM_BUILD_ROOT%{_pkgconfigdir}/2geom.pc
 %find_lang %{name}
 
 %clean

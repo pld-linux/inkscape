@@ -1,6 +1,5 @@
 #
 # Conditional build
-%bcond_with	dbus		# DBus interface
 %bcond_with	relocation	# Enable binary relocation support
 %bcond_with	imagick		# ImageMagick 6.x instead of GraphicsMagick
 #
@@ -8,13 +7,14 @@
 Summary:	Scalable vector graphics editor
 Summary(pl.UTF-8):	Edytor skalowalnej grafiki wektorowej
 Name:		inkscape
-Version:	1.3
+Version:	1.3.1
 Release:	1
 License:	GPL v2+, LGPL v2.1+
 Group:		X11/Applications/Graphics
 # download: follow https://inkscape.org/release/
 Source0:	https://media.inkscape.org/dl/resources/file/%{name}-%{version}.tar.xz
-# Source0-md5:	3b16db43ffdae2156c4f318a44c32bbd
+# Source0-md5:	82c0f2339b8f2ec500e89b17c39709c6
+Patch0:		inkscape-1.3.1-missing-headers.patch
 URL:		https://inkscape.org/
 %{!?with_imagick:BuildRequires:	GraphicsMagick-c++-devel}
 %{?with_imagick:BuildRequires:	ImageMagick6-c++-devel < 7}
@@ -23,10 +23,8 @@ BuildRequires:	boost-devel >= 1.36
 BuildRequires:	cairo-devel >= 1.10
 BuildRequires:	cairomm-devel >= 1.9.8
 BuildRequires:	cmake >= 3.1.0
-%if %{with dbus}
 BuildRequires:	dbus-devel
 BuildRequires:	dbus-glib-devel
-%endif
 BuildRequires:	double-conversion-devel
 BuildRequires:	fontconfig-devel
 BuildRequires:	freetype-devel >= 2.0
@@ -115,7 +113,8 @@ Bash completion for inkscape arguments.
 Bashowe dopełnianie argumentów programu inkscape.
 
 %prep
-%setup -q -n %{name}-%{version}_2023-07-21_0e150ed6c4
+%setup -q -n %{name}-%{version}_2023-11-16_91b66b0783
+%patch0 -p1
 
 # python3-only
 %{__sed} -i -e '1s,/usr/bin/env python3,%{__python3},' \
@@ -147,7 +146,6 @@ cd build
 %cmake .. \
 	-DBUILD_SHARED_LIBS:BOOL=OFF \
 	%{cmake_on_off relocation ENABLE_BINRELOC} \
-	%{cmake_on_off dbus WITH_DBUS} \
 	%{cmake_on_off imagick WITH_IMAGE_MAGICK}
 
 %{__make}
@@ -221,6 +219,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/inkview.1*
 %lang(de) %{_mandir}/de/man1/inkscape.1*
 %lang(fr) %{_mandir}/fr/man1/inkscape.1*
+%lang(hr) %{_mandir}/hr/man1/inkscape.1*
 %lang(hu) %{_mandir}/hu/man1/inkscape.1*
 %lang(ko) %{_mandir}/ko/man1/inkscape.1*
 %lang(zh_TW) %{_mandir}/zh_TW/man1/inkscape.1*

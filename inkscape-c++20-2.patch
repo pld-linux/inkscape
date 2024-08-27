@@ -1,0 +1,20 @@
+From 5aa7b6faf4fa13a1b77b18198ffa62f3fbd8a51f Mon Sep 17 00:00:00 2001
+From: Sven Hesse <drmccoy@drmccoy.de>
+Date: Fri, 31 May 2024 18:07:59 +0200
+Subject: media-gfx/inkscape: add patch for C++20 syntax break
+
+Closes: https://bugs.gentoo.org/933216
+Signed-off-by: David Seifert <soap@gentoo.org>
+
+
+--- a/src/ui/dialog/filter-effects-dialog.cpp
++++ b/src/ui/dialog/filter-effects-dialog.cpp
+@@ -202,7 +202,7 @@
+ template< typename T> class ComboWithTooltip : public Gtk::EventBox
+ {
+ public:
+-    ComboWithTooltip<T>(T default_value, const Util::EnumDataConverter<T>& c, const SPAttr a = SPAttr::INVALID, char* tip_text = nullptr)
++    ComboWithTooltip(T default_value, const Util::EnumDataConverter<T>& c, const SPAttr a = SPAttr::INVALID, char* tip_text = nullptr)
+     {
+         if (tip_text) {
+             set_tooltip_text(tip_text);

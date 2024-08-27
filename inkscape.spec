@@ -8,13 +8,17 @@ Summary:	Scalable vector graphics editor
 Summary(pl.UTF-8):	Edytor skalowalnej grafiki wektorowej
 Name:		inkscape
 Version:	1.3.2
-Release:	2
+Release:	3
 License:	GPL v2+, LGPL v2.1+
 Group:		X11/Applications/Graphics
 # download: follow https://inkscape.org/release/
 Source0:	https://media.inkscape.org/dl/resources/file/%{name}-%{version}.tar.xz
 # Source0-md5:	76ed1f4b13065e80de8b2d77b6427b83
-Patch0:		inkscape-1.3.1-missing-headers.patch
+Patch0:		%{name}-1.3.1-missing-headers.patch
+Patch1:		%{name}-c++20.patch
+Patch2:		%{name}-poppler-gettype-enum.patch
+Patch3:		%{name}-poppler-unicode-marker.patch
+Patch4:		%{name}-c++20-2.patch
 URL:		https://inkscape.org/
 %{!?with_imagick:BuildRequires:	GraphicsMagick-c++-devel}
 %{?with_imagick:BuildRequires:	ImageMagick6-c++-devel < 7}
@@ -49,7 +53,8 @@ BuildRequires:	libpng-devel >= 1.2
 BuildRequires:	librevenge-devel
 BuildRequires:	libsigc++-devel >= 2.0.17
 BuildRequires:	libsoup-devel >= 2.42
-BuildRequires:	libstdc++-devel >= 6:4.7
+# C++ 20 needed for poppler 24.x
+BuildRequires:	libstdc++-devel >= 6:8
 BuildRequires:	libvisio-devel >= 0.1
 BuildRequires:	libwpd-devel >= 0.9
 BuildRequires:	libwpg-devel >= 0.3
@@ -115,6 +120,10 @@ Bashowe dopełnianie argumentów programu inkscape.
 %prep
 %setup -q -n %{name}-%{version}_2023-11-25_091e20ef0f
 %patch0 -p1
+%patch1 -p1
+%patch2 -p1
+%patch3 -p1
+%patch4 -p1
 
 # python3-only
 %{__sed} -i -e '1s,/usr/bin/env python3,%{__python3},' \

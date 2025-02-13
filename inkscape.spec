@@ -7,18 +7,13 @@
 Summary:	Scalable vector graphics editor
 Summary(pl.UTF-8):	Edytor skalowalnej grafiki wektorowej
 Name:		inkscape
-Version:	1.3.2
-Release:	6
+Version:	1.4
+Release:	1
 License:	GPL v2+, LGPL v2.1+
 Group:		X11/Applications/Graphics
 # download: follow https://inkscape.org/release/
 Source0:	https://media.inkscape.org/dl/resources/file/%{name}-%{version}.tar.xz
-# Source0-md5:	76ed1f4b13065e80de8b2d77b6427b83
-Patch0:		%{name}-1.3.1-missing-headers.patch
-Patch1:		%{name}-c++20.patch
-Patch2:		%{name}-poppler-gettype-enum.patch
-Patch3:		%{name}-poppler-unicode-marker.patch
-Patch4:		%{name}-c++20-2.patch
+# Source0-md5:	a93f3a8eab82ef3d610f426bfe58e3df
 URL:		https://inkscape.org/
 %{!?with_imagick:BuildRequires:	GraphicsMagick-c++-devel}
 %{?with_imagick:BuildRequires:	ImageMagick6-c++-devel < 7}
@@ -118,12 +113,7 @@ Bash completion for inkscape arguments.
 Bashowe dopełnianie argumentów programu inkscape.
 
 %prep
-%setup -q -n %{name}-%{version}_2023-11-25_091e20ef0f
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
-%patch4 -p1
+%setup -q -n %{name}-%{version}_2024-10-09_e7c3feb100
 
 # python3-only
 %{__sed} -i -e '1s,/usr/bin/env python3,%{__python3},' \
@@ -174,8 +164,14 @@ rm -rf $RPM_BUILD_ROOT
 # unsupported variants
 %{__rm} -r $RPM_BUILD_ROOT%{_localedir}/{kok@latin,mni@beng,sat@deva}
 
-%{__rm} $RPM_BUILD_ROOT%{_datadir}/inkscape/extensions/{.darglint,.pre-commit-config.yaml,.pylintrc,CONTRIBUTING.md,LICENSE.txt,MANIFEST.in,README.md,TESTING.md,doxygen-main.dox,package-readme.md,poetry.lock,pyproject.toml,tox.ini}
+%{__rm} $RPM_BUILD_ROOT%{_datadir}/inkscape/extensions/LICENSE.txt
 %{__rm} -r $RPM_BUILD_ROOT%{_datadir}/inkscape/extensions/docs
+
+# removing libgeom devel
+%{__rm} -r $RPM_BUILD_ROOT%{_includedir}/2geom-1.4.0
+%{__rm} -r $RPM_BUILD_ROOT%{_libdir}/cmake/2Geom
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/lib2geom.a
+%{__rm} $RPM_BUILD_ROOT%{_pkgconfigdir}/2geom.pc
 
 %find_lang %{name}
 

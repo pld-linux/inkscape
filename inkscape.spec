@@ -7,13 +7,13 @@
 Summary:	Scalable vector graphics editor
 Summary(pl.UTF-8):	Edytor skalowalnej grafiki wektorowej
 Name:		inkscape
-Version:	1.4
+Version:	1.4.2
 Release:	1
 License:	GPL v2+, LGPL v2.1+
 Group:		X11/Applications/Graphics
 # download: follow https://inkscape.org/release/
 Source0:	https://media.inkscape.org/dl/resources/file/%{name}-%{version}.tar.xz
-# Source0-md5:	a93f3a8eab82ef3d610f426bfe58e3df
+# Source0-md5:	0c24e84085bed3f0237d1cdf0856a855
 URL:		https://inkscape.org/
 %{!?with_imagick:BuildRequires:	GraphicsMagick-c++-devel}
 %{?with_imagick:BuildRequires:	ImageMagick6-c++-devel < 7}
@@ -113,7 +113,7 @@ Bash completion for inkscape arguments.
 Bashowe dopełnianie argumentów programu inkscape.
 
 %prep
-%setup -q -n %{name}-%{version}_2024-10-09_e7c3feb100
+%setup -q -n %{name}-%{version}_2025-05-08_ebf0e940d0
 
 # python3-only
 %{__sed} -i -e '1s,/usr/bin/env python3,%{__python3},' \

@@ -8,12 +8,14 @@ Summary:	Scalable vector graphics editor
 Summary(pl.UTF-8):	Edytor skalowalnej grafiki wektorowej
 Name:		inkscape
 Version:	1.4.2
-Release:	3
+Release:	4
 License:	GPL v2+, LGPL v2.1+
 Group:		X11/Applications/Graphics
 # download: follow https://inkscape.org/release/
 Source0:	https://media.inkscape.org/dl/resources/file/%{name}-%{version}.tar.xz
 # Source0-md5:	0c24e84085bed3f0237d1cdf0856a855
+Patch0:		poppler-25.06.patch
+Patch1:		poppler-25.07.patch
 URL:		https://inkscape.org/
 %{!?with_imagick:BuildRequires:	GraphicsMagick-c++-devel}
 %{?with_imagick:BuildRequires:	ImageMagick6-c++-devel < 7}
@@ -28,7 +30,6 @@ BuildRequires:	double-conversion-devel
 BuildRequires:	fontconfig-devel
 BuildRequires:	freetype-devel >= 2.0
 BuildRequires:	gc-devel >= 7.2
-BuildRequires:	gdl-devel >= 3.6
 BuildRequires:	gettext-tools >= 0.17
 BuildRequires:	glib2-devel >= 1:2.28
 BuildRequires:	glibmm-devel >= 2.28
@@ -48,7 +49,6 @@ BuildRequires:	libpng-devel >= 1.2
 BuildRequires:	librevenge-devel
 BuildRequires:	libsigc++-devel >= 2.0.17
 BuildRequires:	libsoup-devel >= 2.42
-# C++ 20 needed for poppler 24.x
 BuildRequires:	libstdc++-devel >= 6:8
 BuildRequires:	libvisio-devel >= 0.1
 BuildRequires:	libwpd-devel >= 0.9
@@ -75,7 +75,7 @@ Requires(post,postun):	gtk-update-icon-cache
 Requires:	cairo >= 1.10
 Requires:	cairomm >= 1.9.8
 Requires:	gc >= 7.2
-Requires:	gdl >= 3.6
+#Requires:	gdl >= 3.6
 Requires:	glib2 >= 1:2.28
 Requires:	glibmm >= 2.28
 Requires:	gtk+3 >= 3.22
@@ -114,6 +114,8 @@ Bashowe dopełnianie argumentów programu inkscape.
 
 %prep
 %setup -q -n %{name}-%{version}_2025-05-08_ebf0e940d0
+%patch -P0 -p1
+%patch -P1 -p1
 
 # python3-only
 %{__sed} -i -e '1s,/usr/bin/env python3,%{__python3},' \

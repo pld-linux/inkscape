@@ -7,15 +7,13 @@
 Summary:	Scalable vector graphics editor
 Summary(pl.UTF-8):	Edytor skalowalnej grafiki wektorowej
 Name:		inkscape
-Version:	1.4.2
-Release:	4
+Version:	1.4.3
+Release:	1
 License:	GPL v2+, LGPL v2.1+
 Group:		X11/Applications/Graphics
 # download: follow https://inkscape.org/release/
 Source0:	https://media.inkscape.org/dl/resources/file/%{name}-%{version}.tar.xz
-# Source0-md5:	0c24e84085bed3f0237d1cdf0856a855
-Patch0:		poppler-25.06.patch
-Patch1:		poppler-25.07.patch
+# Source0-md5:	51779347adc1e9dafa3ab1f4d79aca13
 URL:		https://inkscape.org/
 %{!?with_imagick:BuildRequires:	GraphicsMagick-c++-devel}
 %{?with_imagick:BuildRequires:	ImageMagick6-c++-devel < 7}
@@ -63,7 +61,6 @@ BuildRequires:	popt-devel
 BuildRequires:	potrace-devel
 BuildRequires:	ragel
 BuildRequires:	rpm-build >= 4.6
-BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.752
 BuildRequires:	sed >= 4.0
 BuildRequires:	tar >= 1:1.22
@@ -75,7 +72,6 @@ Requires(post,postun):	gtk-update-icon-cache
 Requires:	cairo >= 1.10
 Requires:	cairomm >= 1.9.8
 Requires:	gc >= 7.2
-#Requires:	gdl >= 3.6
 Requires:	glib2 >= 1:2.28
 Requires:	glibmm >= 2.28
 Requires:	gtk+3 >= 3.22
@@ -113,9 +109,7 @@ Bash completion for inkscape arguments.
 Bashowe dopełnianie argumentów programu inkscape.
 
 %prep
-%setup -q -n %{name}-%{version}_2025-05-08_ebf0e940d0
-%patch -P0 -p1
-%patch -P1 -p1
+%setup -q -n %{name}-%{version}_2025-12-25_0d15f75042
 
 # python3-only
 %{__sed} -i -e '1s,/usr/bin/env python3,%{__python3},' \

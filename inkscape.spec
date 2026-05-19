@@ -7,13 +7,13 @@
 Summary:	Scalable vector graphics editor
 Summary(pl.UTF-8):	Edytor skalowalnej grafiki wektorowej
 Name:		inkscape
-Version:	1.4.3
+Version:	1.4.4
 Release:	1
 License:	GPL v2+, LGPL v2.1+
 Group:		X11/Applications/Graphics
 # download: follow https://inkscape.org/release/
 Source0:	https://media.inkscape.org/dl/resources/file/%{name}-%{version}.tar.xz
-# Source0-md5:	51779347adc1e9dafa3ab1f4d79aca13
+# Source0-md5:	60ed50c2de060307ad1a6555c7653458
 URL:		https://inkscape.org/
 %{!?with_imagick:BuildRequires:	GraphicsMagick-c++-devel}
 %{?with_imagick:BuildRequires:	ImageMagick6-c++-devel < 7}
@@ -21,7 +21,7 @@ BuildRequires:	aspell-devel
 BuildRequires:	boost-devel >= 1.36
 BuildRequires:	cairo-devel >= 1.10
 BuildRequires:	cairomm-devel >= 1.9.8
-BuildRequires:	cmake >= 3.1.0
+BuildRequires:	cmake >= 3.12.0
 BuildRequires:	dbus-devel
 BuildRequires:	dbus-glib-devel
 BuildRequires:	double-conversion-devel
@@ -30,16 +30,17 @@ BuildRequires:	freetype-devel >= 2.0
 BuildRequires:	gc-devel >= 7.2
 BuildRequires:	gettext-tools >= 0.17
 BuildRequires:	glib2-devel >= 1:2.28
-BuildRequires:	glibmm-devel >= 2.28
+BuildRequires:	glibmm-devel >= 2.58
 BuildRequires:	gsl-devel
 BuildRequires:	gspell-devel >= 1.0
-BuildRequires:	gtk+3-devel >= 3.22
-BuildRequires:	gtkmm3-devel >= 3.22
+BuildRequires:	gtk+3-devel >= 3.24
+BuildRequires:	gtkmm3-devel >= 3.24
 BuildRequires:	gtksourceview4-devel
 BuildRequires:	harfbuzz-devel
 BuildRequires:	lcms2-devel >= 2
 BuildRequires:	lib2geom-devel >= 1.3
 BuildRequires:	libcdr-devel >= 0.1
+BuildRequires:	libepoxy-devel
 BuildRequires:	libexif-devel
 BuildRequires:	libgomp-devel
 BuildRequires:	libjpeg-devel
@@ -53,15 +54,16 @@ BuildRequires:	libwpd-devel >= 0.9
 BuildRequires:	libwpg-devel >= 0.3
 BuildRequires:	libxml2-devel >= 1:2.6.26
 BuildRequires:	libxslt-devel >= 1.1.17
-BuildRequires:	pango-devel >= 1:1.24
+BuildRequires:	pango-devel >= 1:1.44
 BuildRequires:	perl-tools-pod
 BuildRequires:	pkgconfig
 BuildRequires:	poppler-glib-devel >= 0.29.0
 BuildRequires:	popt-devel
 BuildRequires:	potrace-devel
 BuildRequires:	ragel
+BuildRequires:	readline-devel
 BuildRequires:	rpm-build >= 4.6
-BuildRequires:	rpmbuild(macros) >= 1.752
+BuildRequires:	rpmbuild(macros) >= 2.047
 BuildRequires:	sed >= 4.0
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xorg-lib-libX11-devel
@@ -73,14 +75,14 @@ Requires:	cairo >= 1.10
 Requires:	cairomm >= 1.9.8
 Requires:	gc >= 7.2
 Requires:	glib2 >= 1:2.28
-Requires:	glibmm >= 2.28
-Requires:	gtk+3 >= 3.22
-Requires:	gtkmm3 >= 3.22
+Requires:	glibmm >= 2.58
+Requires:	gtk+3 >= 3.24
+Requires:	gtkmm3 >= 3.24
 Requires:	hicolor-icon-theme
 Requires:	libsigc++ >= 2.0.17
 Requires:	libxml2 >= 1:2.6.26
 Requires:	libxslt >= 1.1.17
-Requires:	pango >= 1:1.24
+Requires:	pango >= 1:1.44
 Requires:	perl-XML-XQL
 Requires:	poppler-glib >= 0.29.0
 Suggests:	python-lxml
@@ -109,7 +111,7 @@ Bash completion for inkscape arguments.
 Bashowe dopełnianie argumentów programu inkscape.
 
 %prep
-%setup -q -n %{name}-%{version}_2025-12-25_0d15f75042
+%setup -q -n %{name}-%{version}_2026-05-05_dcaf3e7d9e
 
 # python3-only
 %{__sed} -i -e '1s,/usr/bin/env python3,%{__python3},' \
@@ -140,8 +142,8 @@ cd build
 
 %cmake .. \
 	-DBUILD_SHARED_LIBS:BOOL=OFF \
-	%{cmake_on_off relocation ENABLE_BINRELOC} \
-	%{cmake_on_off imagick WITH_IMAGE_MAGICK}
+	-DENABLE_BINRELOC=%{__ON_OFF relocation} \
+	-DWITH_IMAGE_MAGICK=%{__ON_OFF imagick}
 
 %{__make}
 
@@ -162,12 +164,6 @@ rm -rf $RPM_BUILD_ROOT
 
 %{__rm} $RPM_BUILD_ROOT%{_datadir}/inkscape/extensions/LICENSE.txt
 %{__rm} -r $RPM_BUILD_ROOT%{_datadir}/inkscape/extensions/docs
-
-# removing libgeom devel
-%{__rm} -r $RPM_BUILD_ROOT%{_includedir}/2geom-1.4.0
-%{__rm} -r $RPM_BUILD_ROOT%{_libdir}/cmake/2Geom
-%{__rm} $RPM_BUILD_ROOT%{_libdir}/lib2geom.a
-%{__rm} $RPM_BUILD_ROOT%{_pkgconfigdir}/2geom.pc
 
 %find_lang %{name}
 
@@ -219,10 +215,13 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/inkscape.1*
 %{_mandir}/man1/inkview.1*
 %lang(de) %{_mandir}/de/man1/inkscape.1*
+%lang(es) %{_mandir}/es/man1/inkscape.1*
 %lang(fr) %{_mandir}/fr/man1/inkscape.1*
 %lang(hr) %{_mandir}/hr/man1/inkscape.1*
 %lang(hu) %{_mandir}/hu/man1/inkscape.1*
 %lang(ko) %{_mandir}/ko/man1/inkscape.1*
+%lang(pt_BR) %{_mandir}/pt_BR/man1/inkscape.1*
+%lang(sv) %{_mandir}/sv/man1/inkscape.1*
 %lang(zh_TW) %{_mandir}/zh_TW/man1/inkscape.1*
 %lang(de) %{_mandir}/de/man1/inkview.1*
 %lang(es) %{_mandir}/es/man1/inkview.1*
@@ -231,6 +230,7 @@ rm -rf $RPM_BUILD_ROOT
 %lang(hu) %{_mandir}/hu/man1/inkview.1*
 %lang(ko) %{_mandir}/ko/man1/inkview.1*
 %lang(pt_BR) %{_mandir}/pt_BR/man1/inkview.1*
+%lang(sv) %{_mandir}/sv/man1/inkview.1*
 %lang(zh_TW) %{_mandir}/zh_TW/man1/inkview.1*
 
 %files -n bash-completion-inkscape
